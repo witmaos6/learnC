@@ -1,0 +1,55 @@
+//입력: 첫 줄에는 문자열의 길이 L이 들어온다. 둘째 줄에는 영문 소문자로만 이루어진 문자열이 들어온다.
+//입력으로 주어지는 문자열은 모두 알파벳 소문자로만 구성되어 있다.
+//출력: 문제에서 주어진 해시함수와 입력으로 주어진 문자열을 사용해 계산한 해시 값을 정수로 출력한다.
+//결과: 부분 성공, 원인은 모르겠음
+#include <stdio.h>
+#include <iostream>
+#include <vector>
+
+using std::cin;
+using std::cout;
+using std::endl;
+using std::vector;
+
+class Hash {
+public:
+	void change(char msg[], int msgnum[], int L); // char값을 int 값으로 전환
+	int hash(int L, int msgnum[], long long result); // 해싱
+};
+
+void Hash::change(char msg[], int msgnum[], int L) { 
+	for (int i = 0; i < L; i++) {
+		msgnum[i] = msg[i] - 96;
+	}
+}
+
+int Hash:: hash(int L, int msgnum[], long long result) {
+	long long r = 1;
+	int a = 0;
+
+	for (int i = 0; i < L; i++) {
+		a = msgnum[i] * r;
+		r *= 31; // 제시한 소수 31
+		result = result + a;
+	}
+	result %= 1234567891;
+	return result;
+}
+
+Hash geoni;
+
+int main(void) {
+	int length;
+	do {
+		cin >> length;
+	} while (length > 50 || length <= 0);
+
+	char msg[51];
+	int* msgnum = new int[length];
+	cin >> msg;
+
+	long long result = 0;
+
+	geoni.change(msg, msgnum, length);
+	cout << geoni.hash(length, msgnum, result);
+}
