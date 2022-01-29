@@ -1,0 +1,51 @@
+//입력:첫째 줄에 M이, 둘째 줄에 N이 주어진다. M과 N은 10000이하의 자연수이며 M은 N보다 같거나 작다.
+//출력: M이상 N이하의 자연수 중 완전제곱수인 것을 모두 찾아 첫째 줄에 그 합을, 둘째 줄에 그 중 최솟값을 출력한다. 단, M이상 N이하의 자연수 중 완전제곱수가 없을 경우는 첫째 줄에 -1을 출력한다.
+//성공
+#include <stdio.h>
+#include <iostream>
+#include <cmath>
+using std::cin;
+using std::cout;
+using std::endl;
+
+class Psquare {
+public:
+	int Psq_search(int M, int N, int min);
+};
+
+int Psquare::Psq_search(int M, int N, int min) {
+	int n = floor(sqrt(N)); 
+	int j = 0;
+	int* ps = new int[n];
+	int result = 0;
+
+	for (int i = 1; i <= n; i++) {
+		ps[j] = i * i;
+		j++;
+	}
+	for (int i = n-1; i >= 0; i--) {
+		if (ps[i] >= M && ps[i] <= N) {
+			result += ps[i];
+			min = ps[i];
+		}
+	}
+	if (result != 0) {
+		cout << result << endl;
+		return min;
+	}
+	else {
+		return -1;
+	}
+}
+
+int main(void) {
+	Psquare Psq;
+	int M = 0, N = 0;
+	do {
+		cin >> M;
+		cin >> N;
+	} while (M >= N || N > 10000);
+
+	int min = 0;
+	cout << Psq.Psq_search(M, N, min);
+}
