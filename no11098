@@ -1,0 +1,74 @@
+/*입력: 첫 번째 줄에는 테스트 케이스의 개수 n이 주어진다 (n≤100). 
+
+각 테스트 케이스의 첫 번째 줄 p는 고려해야될 선수의 수이다 (1≤p≤100).  
+
+그 아래 p개의 줄에는 선수의 정보가 표시된다. 
+
+각각의 줄은 선수의 가격 C 와 이름을 입력한다 (C<2*109).
+
+모든 선수의 가격은 서로 다르다. 
+선수의 이름은 20자 이하여야 하며, 사이에 공백이 있어서는 안 된다.
+*/
+//출력: 각각의 테스트 케이스에서 가장 비싼 선수의 이름을 출력해야한다.
+//string 배열에 string 리턴값을 넣어야 하는데 방법을 모르겠다.
+#include <stdio.h>
+#include <iostream>
+#include <string>
+using std::cin;
+using std::cout;
+using std::endl;
+using std::string;
+
+class bestPlayer {
+private:
+	int key = 0;
+public:
+	string *player(string* pur, int n) {
+		int p;
+		do {
+			cin >> p;
+		} while (p < 0 || p>100);
+
+		string* PN = new string [p];
+		int* Price = new int[p];
+
+		for (int i = 0; i < p; i++) {
+			cin >> Price[i] >> PN[i];
+		}
+
+		int a = 0;
+
+		for (int i = 0; i < p; i++) {
+			if (key <= Price[i]) {
+				key = Price[i];
+				a = i;
+			}
+		}
+		
+		pur[n] = PN[a];
+		
+		delete[] PN;
+		delete[] Price;
+		return pur;
+	}
+};
+
+int main(void) {
+	bestPlayer BP;
+	int n; 
+	do {
+		cin >> n;
+	} while (n > 100);
+	
+	string* purchase = new string[n];
+	
+	for (int i = 0; i < n; i++) {
+		purchase[i]->assign(BP.player(purchase, i), 0, 20); // 여기가 문제
+	}
+
+	for (int i = 0; i < n; i++) {
+		cout << purchase[i] << endl;
+	}
+
+	return 0;
+}
