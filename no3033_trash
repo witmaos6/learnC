@@ -1,0 +1,76 @@
+//입력: 첫째 줄에 L이 주어진다. (1 ≤ L ≤ 200,000) 다음 줄에는 길이가 L이면서 알파벳 소문자로 이루어진 문자열이 주어진다.
+//출력: 첫째 줄에 두 번 이상 등장하는 부분 문자열 중 길이가 가장 긴 것의 길이를 출력한다. 만약 그러한 문자열이 없을 때는 0을 출력한다.
+//문제를 잘못 이해함
+//가장 많이 나오는 문자 출력하는 프로그램
+#include <stdio.h>
+#include <iostream>
+
+using std::cin;
+using std::cout;
+using std::endl;
+
+class Longchar {
+public:
+	void check(char msg[], int l);
+};
+
+void Longchar::check(char msg[], int l) {
+	static int a[26][2];
+	int b = 0;
+	int key = 0;
+
+	for (int m = 0; m < l; m++) {
+		while (m != l) {
+			a[b][0] = msg[m];
+			for (int j = 0; j < b; j++) {
+				if (a[b][0] == a[j][0]) {
+					a[j][1]++;
+					b--;
+					break;
+				}
+			}
+			b++;
+			break;
+		}
+	}
+
+	//for (int i = 0; i < b; i++) {
+	//	cout << a[i][0] << " " ;
+	//}
+	//cout << "\n";
+	//for (int i = 0; i < b; i++) {
+	//	cout << a[i][1] << " ";
+	//}
+	//cout << "\n";
+
+	key = a[0][1];
+	for (int i = 0; i < b; i++) {
+		if (a[i][1] >= key) {
+			key = a[i][1];
+		}
+	}
+	if (key != 0) {
+		key++;
+	}
+	cout << key << endl;
+	
+}
+
+Longchar checker;
+
+int main(void) {
+	int l; // 1<= l <=200,000
+
+	do {
+		cin >> l;
+	} while (l < 1 || l>2000000);
+
+	char* msg = new char[l];
+	for (int i = 0; i < l; i++) {
+		cin >> msg[i];
+	}
+
+	checker.check(msg, l);
+
+	return 0;
+}
