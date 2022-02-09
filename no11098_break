@@ -10,8 +10,7 @@
 선수의 이름은 20자 이하여야 하며, 사이에 공백이 있어서는 안 된다.
 */
 //출력: 각각의 테스트 케이스에서 가장 비싼 선수의 이름을 출력해야한다.
-//string 배열에 string 리턴값을 넣어야 하는데 방법을 모르겠다.
-#include <stdio.h>
+//수정 완료: 정상적으로 작동되지만 백준에서는 오답처리됨
 #include <iostream>
 #include <string>
 using std::cin;
@@ -23,7 +22,7 @@ class bestPlayer {
 private:
 	int key = 0;
 public:
-	string *player(string* pur, int n) {
+	string player(int n) {
 		int p;
 		do {
 			cin >> p;
@@ -44,12 +43,11 @@ public:
 				a = i;
 			}
 		}
-		
-		pur[n] = PN[a];
-		
+
+		return PN[a];
 		delete[] PN;
 		delete[] Price;
-		return pur;
+		
 	}
 };
 
@@ -63,7 +61,7 @@ int main(void) {
 	string* purchase = new string[n];
 	
 	for (int i = 0; i < n; i++) {
-		purchase[i]->assign(BP.player(purchase, i), 0, 20); // 여기가 문제
+		purchase[i] = BP.player(n);
 	}
 
 	for (int i = 0; i < n; i++) {
