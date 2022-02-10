@@ -1,0 +1,43 @@
+//입력: 첫째 줄부터 열번째 줄 까지 숫자가 한 줄에 하나씩 주어진다. 
+// 이 숫자는 1,000보다 작거나 같고, 음이 아닌 정수이다.
+//출력: 첫째 줄에, 42로 나누었을 때, 서로 다른 나머지가 몇 개 있는지 출력한다.
+#include <iostream>
+#define A 42
+using namespace std;
+
+class Longchar {
+public:
+	int check(int msg[], int l);
+};
+
+int Longchar::check(int msg[], int l) {
+	static int a[10][2];
+	int b = 0;
+
+	for (int m = 0; m < l; m++) {
+		while (m != l) {
+			a[b][0] = msg[m];
+			for (int j = 0; j < b; j++) {
+				if (a[b][0] == a[j][0]) {
+					a[j][1]++;
+					b--;
+					break;
+				}
+			}
+			b++;
+			break;
+		}
+	}
+	return b;
+}
+
+int main(void) {
+	Longchar ch;
+	int arr[10];
+	for (int i = 0; i < 10; i++) {
+		cin >> arr[i];
+		arr[i] %= A;
+	}
+	cout << ch.check(arr, 10);
+	return 0;
+}
