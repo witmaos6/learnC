@@ -1,0 +1,53 @@
+//입력: 월, 일
+//출력: 2007년 1월 1일이 월요일 일 때 입력 값의 월 일이 무슨 요일인지 출력
+#include <iostream>
+using namespace std;
+
+class Wcal {
+public:
+	int calender(int m, int d);
+	string week(int n);
+};
+
+int Wcal::calender(int m, int d) {
+	int month[13] = { 0,31,28,31,30,31,30,31,31,30,31,30,31 };
+	int a = 0;
+	if (m == 1) {
+		return d -= 1;
+	}
+	else {
+		while (m > 1) {
+			a += month[m-1];
+			m--;
+		}
+		return a + d - 1;
+	}
+}
+
+string Wcal::week(int a) {
+	string W[7] = { "MON", "TUE","WED","THU","FRI","SAT","SUN" };
+	a %= 7;
+	switch (a)
+	{
+	case 0:return W[0]; break;
+	case 1:return W[1]; break;
+	case 2:return W[2]; break;
+	case 3:return W[3]; break;
+	case 4:return W[4]; break;
+	case 5:return W[5]; break;
+	case 6:return W[6]; break;
+	default:
+		break;
+	}
+}
+
+int main(void) {
+	Wcal wc;
+	int mon, day;
+	cin >> mon >> day;
+
+	int n = wc.calender(mon, day);
+	string Week = wc.week(n);
+	cout << Week;
+	return 0;
+}
