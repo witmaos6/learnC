@@ -1,0 +1,94 @@
+//큐를 구현한 후 명령어 실행
+#include <iostream>
+using namespace std;
+
+template<typename T> class queue 
+{
+private:
+	T* data;
+	int Ifront;
+	int Iback;
+public:
+	queue(int N) {
+		data = new T[N];
+		Ifront = -1;
+		Iback = -1;
+	};
+	~queue() {
+		delete[] data;
+	};
+	void push(T inputdata) {
+		this->data[this->Iback + 1] = inputdata;
+		this->Iback += 1;
+		return;
+	}
+	T pop() {
+		T res = this->data[this->Ifront + 1];
+		this->Ifront += 1;
+		return res;
+	}
+	int size() {
+		return this->Iback - this->Ifront;
+	}
+	bool empty() {
+		return this->size() == 0 ? true : false;
+	}
+	T front() {
+		T res = this->data[this->Ifront + 1];
+		return res;
+	}
+	T back() {
+		T res = this->data[this->Iback];
+		return res;
+	}
+};
+
+int main(void) {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL); cout.tie(NULL);
+
+	int N;
+	cin >> N;
+	queue<int> q(N);
+
+	for (int i = 0; i < N; i++) {
+		string com;
+		cin >> com;
+		if (com == "push") {
+			int d;
+			cin >> d;
+			q.push(d);
+		}
+		else if (com == "pop") {
+			if (q.empty()) {
+				cout << "-1\n";
+			}
+			else {
+				cout << q.pop() << "\n";
+			}
+		}
+		else if (com == "size") {
+			cout << q.size() << "\n";
+		}
+		else if (com == "empty") {
+			cout << q.empty() << "\n";
+		}
+		else if (com == "front") {
+			if (q.empty()) {
+				cout << "-1\n";
+			}
+			else {
+				cout << q.front() << "\n";
+			}
+		}
+		else {
+			if (q.empty()) {
+				cout << "-1\n";
+			}
+			else {
+				cout << q.back() << "\n";
+			}
+		}
+	}
+	return 0;
+}
