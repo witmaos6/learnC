@@ -1,0 +1,36 @@
+//입력: 8개의 숫자
+//출력: 1~8까지 동일할 경우 ascending, 8~1까지 동일할 경우 descending, 그 외 mixed 출력
+#include <iostream>
+#include <vector>
+using std::cin;
+using std::cout;
+using std::vector;
+
+template<typename T>
+bool compare(vector<T>& vec1, vector<T>& vec2) {
+	if (vec1 == vec2) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+int main(void) {
+	vector<int> scale(8);
+	for (int i = 0; i < 8; i++) {
+		cin >> scale[i];
+	}
+	vector<int> check = { 1,2,3,4,5,6,7,8 };
+
+	if (compare(scale, check) == true) {
+		cout << "ascending";
+	}
+	else {
+		check = { 8,7,6,5,4,3,2,1 };
+		compare(scale, check) ?
+			cout << "descending" :
+			cout << "mixed";
+	}
+	return 0;
+}
