@@ -28,7 +28,7 @@ void PrintQ::document() {
 int PrintQ::loc() {
 	int fir, sec;
 	int count = 0;
-	while (!pq.empty()) {
+	while (!q.empty()) {
 		fir = q.front().first;
 		sec = q.front().second;
 		q.pop();
