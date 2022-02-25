@@ -1,0 +1,39 @@
+//입력: 입력할 숫자의 개수, 큐에 들어갈 숫자
+//출력: 큐에 있는 숫자중 중간 값 
+#include <iostream>
+#include <queue>
+using namespace std;
+
+int main(void) {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL); cout.tie(NULL);
+	priority_queue<int, vector<int>, greater<int>>pq;
+	priority_queue<int>maxh;
+	int N;
+	cin >> N;
+	for (int i = 0; i < N; i++) {
+		int x;
+		cin >> x;
+		if (maxh.size() == 0) {
+			maxh.push(x);
+		}
+		else {
+			if (maxh.size() > pq.size()) {
+				pq.push(x);
+			}
+			else {
+				maxh.push(x);
+			}
+			if (maxh.top() > pq.top()) {
+				int maxt = maxh.top();
+				int mint = pq.top();
+				maxh.pop();
+				pq.pop();
+				maxh.push(mint);
+				pq.push(maxt);
+			}
+		}
+		cout << maxh.top() << "\n";
+	}
+	return 0;
+}
