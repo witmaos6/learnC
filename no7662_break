@@ -1,0 +1,84 @@
+//입력: 테스트 케이스, 명령어 개수, 명령어
+//출력: 큐가 비어 있다면 EMPTY, 비어있지 않다면 최대값과 최소값 출력
+#include <iostream>
+#include <queue>
+using std::cin;
+using std::cout;
+using std::priority_queue;
+using std::ios_base;
+using std::vector;
+using std::greater;
+using std::pair;
+using std::make_pair;
+
+class doublePQ {
+private:
+	priority_queue<pair<int, int>, vector<pair<int, int>>>maxpq;
+	priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>>minpq;
+public:
+	void pqInput() {
+		int k;
+		cin >> k;
+		bool* valid = new bool[k];
+		for (int i = 0; i < k; i++) {
+			valid[i] = false;
+		}
+		for (int i = 0; i < k; i++) {
+			char cal;
+			int data;
+			cin >> cal >> data;
+			if (cal == 'I') {
+				maxpq.push(make_pair(data, i));
+				minpq.push(make_pair(data, i));
+				valid[i] = true;
+			}
+			else if (cal == 'D') {
+				if (data == 1) {
+					while (!maxpq.empty() && !valid[maxpq.top().second])
+						maxpq.pop();
+					if (!maxpq.empty()) {
+						valid[maxpq.top().second] = false;
+						maxpq.pop();
+					}
+				}
+				else if (data == -1) {
+					while (!minpq.empty() && !valid[minpq.top().second])
+						minpq.pop();
+					if (!minpq.empty()) {
+						valid[minpq.top().second] = false;
+						minpq.pop();
+					}
+				}
+				else cout << "잘못된 정수입니다";
+			}
+			else cout << "잘못된 명령입니다";
+		}
+		while (!maxpq.empty() && !valid[maxpq.top().second])
+			maxpq.pop();
+		while (!minpq.empty() && !valid[minpq.top().second])
+			minpq.pop();
+	}
+	void pqprint() {
+		if (maxpq.empty()) {
+			cout << "EMPTY\n";
+		}
+		else {
+			cout << maxpq.top().first << " " << minpq.top().first << "\n";
+		}
+	}
+};
+
+int main(void) {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL); cout.tie(NULL);
+
+	int T;
+	cin >> T;
+	doublePQ DPQ;
+	for (int i = 0; i < T; i++) {
+		DPQ.pqInput();
+		DPQ.pqprint();
+	}
+
+	return 0;
+}
