@@ -1,0 +1,53 @@
+//입력: 강의 개수, 강의 시작시간, 끝나는시간
+//출력: 강의실의 최소 개수
+#include <iostream>
+#include <queue>
+using namespace std;
+
+struct lecture {
+	int start;
+	int end;
+	lecture(int a, int b) :start(a), end(b) {}
+};
+struct compare {
+	bool operator()(lecture a, lecture b) {
+		if (a.start == b.start) {
+			return a.end > b.end;
+		}
+		return a.start > b.start;
+	}
+};
+int main(int argc, char* argv[]) {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL); cout.tie(NULL);
+
+	int N;
+	cin >> N;
+	priority_queue<lecture, vector<lecture>, compare>lec;
+	priority_queue<int, vector<int>, greater<int>>room;
+	for (int i = 0; i < N; i++) {
+		int S, T;
+		cin >> S >> T;
+		lec.push(lecture(S, T));
+	}
+	while (!lec.empty()) {
+		if (room.empty()) {
+			room.push(lec.top().end);
+			lec.pop();
+		}
+		else {
+			if (room.top() <= lec.top().start) {
+				room.pop();
+				room.push(lec.top().end);
+				lec.pop();
+			}
+			else {
+				room.push(lec.top().end);
+				lec.pop();
+			}
+		}
+	}
+	cout << room.size();
+
+	return 0;
+}
