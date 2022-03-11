@@ -1,0 +1,27 @@
+//입력: N과 N^2의 숫자
+//출력: N번째 큰 숫자
+#include <iostream>
+#include <queue>
+using namespace std;
+
+int main(int argc, char* argv[]) {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL); cout.tie(NULL);
+
+	int N;
+	cin >> N;
+	priority_queue<int, vector<int>, greater<int>>pq;
+	for (int i = 0; i < N; i++) {
+		int input;
+		for (int j = 0; j < N; j++) {
+			cin >> input;
+			pq.push(input);
+		}
+		while (pq.size() > N) {
+			pq.pop();
+		}
+	}
+	cout << pq.top();
+
+	return 0;
+}
