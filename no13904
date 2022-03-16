@@ -1,0 +1,60 @@
+//입력: 과제 개수, 과제 마감임, 과제 점수
+//출력: 가장 높은 점수를 받을 수 있는 과제 수
+#include <iostream>
+#include <queue>
+using namespace std;
+
+struct problem {
+	int close;
+	int point;
+	problem(int a, int b) :close(a), point(b) {}
+};
+struct Ccompare { //마감일 우선
+	bool operator()(problem a, problem b) {
+		if (a.close == b.close)return a.point < b.point;
+		return a.close > b.close;
+	}
+};
+
+int main(int argc, char* argv[]) {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	int N;
+	cin >> N;
+	priority_queue<problem, vector<problem>, Ccompare > pq;
+	for (int i = 0; i < N; i++) {
+		int d, w;
+		cin >> d >> w;
+		pq.push({ d, w });
+	}
+	priority_queue<int, vector<int>, greater<int>>score;
+	int j = 0;
+	while (!pq.empty()) {
+		int temp = pq.top().point;
+		if (j < pq.top().close) {
+			score.push(temp);
+			pq.pop();
+			j++;
+		}
+		else {
+			if (temp > score.top()) {
+				score.pop();
+				score.push(temp);
+				pq.pop();
+			}
+			else {
+				pq.pop();
+			}
+		}
+	}
+	int total = 0;
+	while (!score.empty()) {
+		total += score.top();
+		score.pop();
+	}
+	cout << total;
+
+	return 0;
+}
