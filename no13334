@@ -1,0 +1,59 @@
+//입력: 사람 수, 집과 사무실 위치, 철로 길이
+//출력: 철로 내의 최대 사람 수
+#include <iostream>
+#include <queue>
+#include <algorithm>
+using namespace std;
+
+typedef struct {
+	int house;
+	int office;
+}loc;
+
+bool Lcompare(loc a, loc b) {
+	// 시작점이 가까운 사람 우선, 동일할 시 도착점이 가까운 사람 우선
+	if (a.office == b.office) return a.house < b.house;
+	else return a.office < b.office;
+}
+
+int main(int argc, char* argv[]) {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL); cout.tie(NULL);
+	
+	int n;
+	cin >> n;
+	vector<loc> arr(n);
+	for (int i = 0; i < n; i++) {
+		int a, b;
+		cin >> a >> b;
+		if (a > b) {
+			arr[i].house = b;
+			arr[i].office = a;
+		}
+		else  {
+			arr[i].house = a;
+			arr[i].office = b;
+		}
+	}
+	int d;
+	cin >> d;
+	sort(arr.begin(), arr.end(), Lcompare);
+	priority_queue<int, vector<int>, greater<int>>rail;
+	int count = 0;
+	for (int i = 0; i < n; i++) {
+		if (arr[i].office - arr[i].house <= d) {
+			rail.push(arr[i].house);
+		}
+		else continue;
+		while (!rail.empty()) {
+			if (rail.top() < arr[i].office - d)rail.pop();
+			else {
+				count = max(count, (int)rail.size());
+				break;
+			}
+		}
+	}
+	cout << count;
+
+	return 0;
+}
