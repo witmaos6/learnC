@@ -1,0 +1,62 @@
+// 입력: 자료구조에 입력할 자료의 숫자와 자료들, 찾을 숫자의 개수와 찾을 숫자들
+// 출력: 자료구조에 찾고자 하는 자료가 있다면 1을, 없다면 0을 출력
+#include <iostream>
+#include <vector>
+#include <map>
+using namespace std;
+
+class FindANumber
+{
+public:
+	void addMap(map<int, int>& container);
+	bool solve(map<int, int> container, unsigned int numberToFind);
+};
+
+int main(void)
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL); cout.tie(NULL);
+
+	FindANumber findANumber;
+	map<int, int>FN;
+
+	findANumber.addMap(FN);
+
+	unsigned int NumberOfDataToFind;
+	cin >> NumberOfDataToFind;
+
+	unsigned int NumberToFind;
+	for (unsigned int i = 0; i < NumberOfDataToFind; i++)
+	{
+		cin >> NumberToFind;
+		cout << findANumber.solve(FN, NumberToFind) << '\n';
+	}
+
+	return 0;
+}
+
+void FindANumber::addMap(map<int, int>& container)
+{
+	unsigned int TheNumberOfInputData;
+	cin >> TheNumberOfInputData;
+
+	unsigned int InputData;
+
+	for (unsigned int i = 0; i < TheNumberOfInputData; i++)
+	{
+		cin >> InputData;
+		container.insert({ InputData, InputData });
+	}
+}
+
+bool FindANumber::solve(map<int, int> container, unsigned int numberToFind)
+{
+	if (container.find(numberToFind) != container.end())
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
