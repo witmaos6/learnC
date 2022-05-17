@@ -1,0 +1,78 @@
+//입력: 상근이가 가지고 있는 카드의 개수, 각각의 카드에 적힌 번호, 찾을 카드의 개수, 찾을 카드의 번호들
+//출력: 찾을 카드의 개수
+#include <iostream>
+#include <unordered_map>
+#include <vector>
+using namespace std;
+
+class Solution
+{
+private:
+	int cardNumber;
+	unsigned int theNumberOfCardToFind;
+public:
+	void addUMap(unordered_map<int, int>& um);
+	void addCardToFind(vector<int>& v);
+	void solve(unordered_map<int, int> um, vector<int> v);
+};
+
+int main(void)
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL); cout.tie(NULL);
+
+	unordered_map<int, int>Cards;
+	vector<int> CardToFind;
+
+	Solution solution;
+
+	solution.addUMap(Cards);
+	solution.addCardToFind(CardToFind);
+	solution.solve(Cards, CardToFind);
+
+	return 0;
+}
+
+void Solution::addUMap(unordered_map<int, int>& um)
+{
+	unsigned int theNumberOfCards;
+	cin >> theNumberOfCards;
+
+	while (theNumberOfCards--)
+	{
+		cin >> cardNumber;
+
+		if (um.insert(pair<int, int>(cardNumber, 1)).second == false)
+		{
+			um[cardNumber]++;
+		}
+	}
+}
+
+void Solution::addCardToFind(vector<int>& v)
+{
+	cin >> theNumberOfCardToFind;
+
+	for (unsigned int i = 0; i < theNumberOfCardToFind; i++)
+	{
+		cin >> cardNumber;
+		v.push_back(cardNumber);
+	}
+}
+
+void Solution::solve(unordered_map<int, int> um, vector<int> v)
+{
+	for (unsigned int i = 0; i < theNumberOfCardToFind; i++)
+	{
+		if (um.find(v[i]) == um.end())
+		{
+			cout << 0 << " ";
+		}
+		else
+		{
+			cout << um[v[i]] << " ";
+		}
+	}
+}
+// unordered_map을 처음 써봐서 애 좀 먹었다.
+// 메모리는 확실히 많이 잡아먹지만 시간은 꽤 빠르다.
