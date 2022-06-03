@@ -1,3 +1,4 @@
+// 2차원 벡터를 생성자를 이용하여 재구성하고 4개의 row, column값의 범위 안에 있는 값들의 합을 구하여라
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -66,4 +67,4 @@ void NumMatrix::print2Dvector()
 		cout << '\n';
 	}
 }
-
+// DP를 이용하여 풀었으나 2차원 벡터의 크기가 작을 때 여러가지 문제 발생
