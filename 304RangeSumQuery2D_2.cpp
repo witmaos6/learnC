@@ -6,8 +6,8 @@ class NumMatrix {
 private:
 	vector<vector<long long>> mvMatrix;
 public:
-    NumMatrix(vector<vector<int>>& matrix);
-	long long sumRegion(int row1, int col1, int row2, int col2);
+	NumMatrix(vector<vector<int>>& matrix); // O(N*M) N=matrix.size() M=matrix[0].size()
+	long long sumRegion(int row1, int col1, int row2, int col2); // O
 	void print2Dvector();
 };
 
@@ -57,4 +57,6 @@ void NumMatrix::print2Dvector()
 		cout << '\n';
 	}
 }
-
+//그냥 row==0, col==0인 경우에 전부 0값을 넣어 해결했다.
+//0값을 넣고 새로 2차원 벡터를 만드니 코드를 조금 더 깔끔하게 작성할 수 있었지만(생성자 함수가 눈에 띄게 짧아졌다) 메모리낭비가 심할것으로 예상된다.
+//지금 생성자 함수에서는 하나의 mvMatrix값을 할당하기 위해 4개의 값을 탐색하고 연산하는데 이 부분은 이전코드가 효율이 더 좋을 것 같다.
