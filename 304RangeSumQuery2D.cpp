@@ -31,18 +31,12 @@ int main(void)
 NumMatrix::NumMatrix(vector<vector<int>>& matrix)
 {
 	mvMatrix.assign(matrix.size() + 1, vector<long long>(matrix[0].size() + 1));
-	long long temp = 0;
-	for (unsigned int column1 = 1; column1 < matrix[0].size(); column1++)
+	int temp = 0;
+	for (unsigned int row = 1; row < matrix.size() + 1; row++)
 	{
-		temp += matrix[0][column1];
-		mvMatrix[0][column1] = temp;
-	}
-	temp = 0;
-	for (unsigned int row = 1; row < matrix.size(); row++)
-	{
-		for (unsigned int column = 0; column < matrix[0].size(); column++)
+		for (unsigned int column = 1; column < matrix[0].size() + 1; column++)
 		{
-			temp += matrix[row][column];
+			temp += matrix[row - 1][column - 1];
 			mvMatrix[row][column] = temp + mvMatrix[row - 1][column];
 		}
 		temp = 0;
@@ -51,9 +45,7 @@ NumMatrix::NumMatrix(vector<vector<int>>& matrix)
 
 long long NumMatrix::sumRegion(int row1, int col1, int row2, int col2)
 {
-	long long plus = mvMatrix[row2][col2] + mvMatrix[row1 - 1][col1 - 1];
-	long long result = plus - mvMatrix[row1 - 1][col2] - mvMatrix[row2][col1 - 1];
-	return  result;
+	return  mvMatrix[row2 + 1][col2 + 1] + mvMatrix[row1][col1] - mvMatrix[row1][col2 + 1] - mvMatrix[row2 + 1][col1];
 }
 
 void NumMatrix::print2Dvector()
@@ -68,3 +60,5 @@ void NumMatrix::print2Dvector()
 	}
 }
 // DP를 이용하여 풀었으나 2차원 벡터의 크기가 작을 때 여러가지 문제 발생
+// row==0인 경우와 column==0인 경우에 0값을 추가하여 코드 간소화
+// 탐색은 줄였지만 연산이 늘어나서 인지 사이트에서는 시간차이가 별로 나지 않는다.
