@@ -5,8 +5,8 @@ using namespace std;
 
 class Solution {
 public:
-	vector<int> twoSum(vector<int>& numbers, int target);
-	vector<int> twoSumSecondSolution(vector<int>& numbers, int target);
+	vector<int> twoSum(vector<int>& numbers, int target); //이진탐색 O(NlogN) N==numbers.size()
+	vector<int> twoSumSecondSolution(vector<int>& numbers, int target); // 선형탐색 O(N) N==numbers.size()
 };
 
 int main(void)
@@ -35,7 +35,7 @@ vector<int> Solution::twoSum(vector<int>& numbers, int target)
 		}
 	}
 	return {};
-}
+} // 중복된 인덱스를 반환하는 경우도 있고 NlogN의 시간복잡도를 가지기 때문에 시간초과가 나는 경우도 있음
 
 vector<int> Solution::twoSumSecondSolution(vector<int>& numbers, int target)
 {
@@ -43,10 +43,14 @@ vector<int> Solution::twoSumSecondSolution(vector<int>& numbers, int target)
 	int LastTarget = numbers.size() - 1;
 	int sum = numbers[FirstTarget] + numbers[LastTarget];
 
-	while (sum != target)
+	while (FirstTarget < LastTarget)
 	{
 		sum = numbers[FirstTarget] + numbers[LastTarget];
-		if (sum > target)
+		if(sum == target)
+		{
+			break;
+		}
+		else if (sum > target)
 		{
 			LastTarget--;
 		}
@@ -56,4 +60,5 @@ vector<int> Solution::twoSumSecondSolution(vector<int>& numbers, int target)
 		}
 	}
 	return { FirstTarget + 1, LastTarget + 1 };
-}
+} // 오름차순 정렬이기 때문에 맨 왼쪽과 오른쪽 값을 덧셈하면서 실행
+//sum 연산을 하지 않을 경우 실행속도가 빠르지만 읽기는 불편해진다.
