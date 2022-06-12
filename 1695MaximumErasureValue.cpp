@@ -1,3 +1,4 @@
+//중복된 값이 없으면서 값의 합계가 가장 큰 연속 배열의 합을 출력
 #include <iostream>
 #include <vector>
 #include <set>
@@ -28,7 +29,7 @@ int Solution::maximumUniqueSubarray(vector<int>& nums)
     int MaximumSubarray = 0;
     set<int> Subarray = { nums[0] };
 
-	while (right < (int)nums.size())
+    while (right < (int)nums.size())
     {
         while(Subarray.find(nums[right])!=end(Subarray))
         {
@@ -44,3 +45,6 @@ int Solution::maximumUniqueSubarray(vector<int>& nums)
 
     return MaximumSubarray;
 }
+// 지난번에 중복된 문자가 없는 가장 긴 문자열 찾기와 비슷한 문제였다. //3번 문제
+// 이번엔 size()가 아닌 합계가 가장 커야했지만 배열의 합계정보만 따로 가지고 있다면 같은 알고리즘으로도 풀 수 있다고 생각하여 이렇게 풀었다.
+// 3번 문제처럼 size()==10000인 배열을 만들어 푸는 방법이 가장 빨랐다. 
