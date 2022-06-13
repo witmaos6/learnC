@@ -1,3 +1,4 @@
+// 2차원 벡터가 주어졌을 때 가장 작은 값의 pathsum을 구하여라
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -72,4 +73,4 @@ int Solution::minimumTotalBottomUp(vector<vector<int>>& triangle)
 	}
     return triangle[0][0];
 }
-
+// TopDown과 BottomUp 두개의 풀이를 사용해본 결과 사이트 기준으로 TopDown이 메모리는 더 사용하지만 속도는 더 빨랐다.
