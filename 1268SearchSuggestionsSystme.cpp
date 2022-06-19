@@ -7,6 +7,7 @@ using namespace std;
 
 class Solution {
 public:
+	vector<vector<string>> suggestedProductsIteratorSolution(vector<string>& products, string searchWord);
 	vector<vector<string>> suggestedProducts(vector<string>& products, string searchWord);
 	vector<string> SearchEachSubstr(const vector<string>& products, const string& Substr);
 	void PrintSDVector(vector<vector<string>>& result);
@@ -25,6 +26,30 @@ int main(void)
 	solution.PrintSDVector(SearchResult);
 
 	return 0;
+}
+
+vector<vector<string>> Solution::suggestedProductsIteratorSolution(vector<string>& products, string searchWord)
+{
+	vector<vector<string>> SearchResult;
+	sort(products.begin(), products.end()); // O(NlogN) N==products.size()
+	string type = "";
+	for (char& c : searchWord)
+	{
+		type += c; //O(M) M==searchWord.size()
+		vector<string>::iterator LeftPoint = lower_bound(products.begin(), products.end(), type); //O(logN)
+		vector<string>::iterator RightPoint = upper_bound(products.begin(), products.end(), type + '~'); // O(logN)
+		if (LeftPoint == RightPoint)
+		{
+			break;
+		}
+		SearchResult.emplace_back(LeftPoint, min(LeftPoint + 3, RightPoint));
+	}
+	while (SearchResult.size() != searchWord.size())
+	{
+		SearchResult.push_back({});
+	}
+
+	return SearchResult;
 }
 
 vector<vector<string>> Solution::suggestedProducts(vector<string>& products, string searchWord)
@@ -70,3 +95,6 @@ void Solution::PrintSDVector(vector<vector<string>>& result)
 		cout << '\n';
 	}
 }
+// 첫번째 풀이는 O(NlogN) + O(M*N)의 시간이 걸렸다.
+// 두번째 풀이는 Iterator를 사용해서 풀었다. O(NlogN) + O(M*(logN)^2)
+// 두번째 풀이가 활실히 더 빠르다.
