@@ -6,9 +6,9 @@ using namespace std;
 
 class Solution {
 public:
-	int SortSolution(vector<int>& nums, int k); // O(NlogN) N==nums.size()
-	int PQSolution(vector<int>& nums, int k); //O(NlogN)+ klogN k==Index k
-	int findKthLargest(vector<int>& nums, int k); // O(NlogN) - alpha
+	int SortSolution(vector<int>& nums, int k); // O(NlogN+N) N==nums.size()
+	int PQSolution(vector<int>& nums, int k); //O(NlogN+klogN) k==Index k
+	int findKthLargest(vector<int>& nums, int k); // O(klogN + N-klogN)
 };
 
 int main(void)
