@@ -1,3 +1,4 @@
+// 배열이 주어지면 k번째로 큰 원소를 반환하라
 #include <iostream>
 #include <vector>
 #include <queue>
@@ -49,7 +50,7 @@ int Solution::SortSolution(vector<int>& nums, int k)
 
 int Solution::PQSolution(vector<int>& nums, int k)
 {
-	priority_queue<int> KthLargestElements;
+	priority_queue<int, vector<int>> KthLargestElements;
 	for (int num : nums)
 	{
 		KthLargestElements.push(num);
@@ -61,4 +62,7 @@ int Solution::PQSolution(vector<int>& nums, int k)
 	}
 	return KthLargestElements.top();
 }
-
+// SortSolution은 정렬한 후 k번째 원소위치를 찾아서 반환하는 간단한 알고리즘이다.
+// PQSolution은 우선순위 큐를 사용하였다. 모든 원소를 push한 후에 k-1만큼 pop을 하기 때문에 sort보다 시간이 더 오래걸린다.
+// 마지막으로 첫번 째 함수도 우선순위큐를 사용하였지만 큐의 크기를 k만큼 고정하여 top과 이후에 원소들의 크기를 비교하고 push를 할지 결정하기 때문에 삽입 삭제 연산 횟수를 줄일 수 있다.
+// 물론 최악의 경우에는 PQSolution과 똑같긴 하다.
