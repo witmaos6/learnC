@@ -1,3 +1,4 @@
+// 배열이 주어졌을 때 배열안에 있는 모든 숫자들을 최소한의 연산으로 같게 만든다.
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -31,14 +32,16 @@ int Solution::MinMovesBruteForce(vector<int>& nums)
 	return Sum;
 }
 
-int Solution::minMoves2(vector<int>& nums)
+int Solution::minMoves2(vector<int>& nums) //O(NlogN) + O(N)
 {
-	sort(nums.begin(), nums.end());
+	sort(nums.begin(), nums.end()); // O(NlogN)
 	int median = nums.size() / 2;
 	int sum = 0;
-	for (int i = 0; i < nums.size(); i++)
+	for (int i = 0; i < nums.size(); i++) //O(N)
 	{
 		sum += abs(nums[median] - nums[i]);
 	}
 	return sum;
 }
+// 처음에는 평균값을 구한 후 위치를 조정하여 맞추려고 시도했다.
+// 하지만 숫자 n을 기준으로 n보다 큰 숫자와 작은 숫자의 개수만 맞추면 된다는 걸 알아냈고 중간값을 찾아 연산을 해주는 방법을 사용하여 풀었다.
