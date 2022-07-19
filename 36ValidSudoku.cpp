@@ -1,3 +1,4 @@
+// Sudoku board가 주어졌을 때 최초의 모습이 올바른지 검사하라(완전히 풀 수 있는 퍼즐인지는 검사하지 않는다.)
 #include <iostream>
 #include <vector>
 #include <set>
@@ -5,6 +6,7 @@ using namespace std;
 
 class Solution {
 public:
+	bool OptimizeIsValidSudoku(vector<vector<char>>& board);
 	bool isValidSudoku(vector<vector<char>>& board);
 	bool bSearchSudokuRow(vector<vector<char>>& board, int Row);
 	bool bSearchSudokuCol(vector<vector<char>>& board, int Col);
@@ -44,6 +46,35 @@ int main(void)
 	cout << solution.isValidSudoku(FalseCaseSudokuBoard);
 
 	return 0;
+}
+
+bool Solution::OptimizeIsValidSudoku(vector<vector<char>>& board)
+{
+	vector<set<int>> Rows(9), Cols(9), Blocks(9);
+
+	for (int row = 0; row < 9; row++)
+	{
+		for (int col = 0; col < 9; col++)
+		{
+			if (board[row][col] == '.')
+			{
+				continue;
+			}
+			int CurrentNumber = board[row][col]; // vector라면 -'0'를 해서 인덱스를 맞춰줘야 하지만 set는 그럴 필요가 없다. 원소들이 고유한지만 검사하면 된다.
+			int BlockCheckOnly = (row / 3) * 3 + col / 3;
+			if (Rows[row].count(CurrentNumber) ||
+				Cols[col].count(CurrentNumber) ||
+				Blocks[BlockCheckOnly].count(CurrentNumber))
+			{
+				return false;
+			}
+
+			Rows[row].insert(CurrentNumber);
+			Cols[col].insert(CurrentNumber);
+			Blocks[BlockCheckOnly].insert(CurrentNumber);
+		}
+	}
+	return true;
 }
 
 bool Solution::isValidSudoku(vector<vector<char>>& board)
@@ -140,3 +171,5 @@ bool Solution::bSearchSudokuSubbox(vector<vector<char>>& board, int TopLeft, int
 	}
 	return true;
 }
+// Row, Col, Block 3개 유형으로 탐색하는 함수를 만들어 실행했다. 시간내의 풀 수 있었지만 느린편에 속하는 알고리즘이었다.
+// 최적화 함수는 dicuss에서 본건데 vector에 set<char>를 넣는 방식을 사용했다. 처음보는 방식이라 신기했다.
