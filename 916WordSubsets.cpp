@@ -138,3 +138,7 @@ void Solution::printVector(vector<string>& Subset)
 		cout << str << ' ';
 	}
 }
+// 문제의 조건이 명확하지 않아 좀 해맸다.
+// words1이 words2에 있는 문자열을 모두 포함하는지 찾는 문제인데 개수도 맞아야 한다.
+// 그런데 words2가 {"a","aa"} 이런식으로 되어있다면 aa만 취급해도 된다. -> 이부분 때문에 머리가 좀 아팠다.
+// 처음에는 unordered_map으로 접근했는데 순회를 해야하는 문제라 그런지 실행속도가 상당히 느렸다.
