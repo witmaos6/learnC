@@ -1,3 +1,4 @@
+// 배열 nums가 주어지면 update(배열의 저장되어 있는 변수 변경), sumRange(Left부터 Right까지의 합)를 구현하라
 #include <iostream>
 #include <vector>
 #include <cmath>
@@ -103,3 +104,5 @@ int NumArray::sumRangeUtil(int Left, int Right, int index, int sLeft, int sRight
 	return sumRangeUtil(Left, min(Right, middle), 2 * index, sLeft, middle) +
 		sumRangeUtil(max(Left, middle + 1), Right, 2 * index + 1, middle + 1, sRight);
 }
+// 세그먼트 트리를 이용해서 풀었다. 개념은 이해되는데 구현을 하기가 좀 까다로웠다. 인수가 많은게 흠인데 인수를 줄일 방법이 생각나지가 않는다.
+// 세그먼트 트리는 기본적으로 주어진 데이터의양 *4를 하면 넉넉하다고 한다. 그런데 메모리를 절약해야 하는 상황이 발생할 수 있기 때문에 메모리 최적화를 해주는 코드도 넣어봤다.
