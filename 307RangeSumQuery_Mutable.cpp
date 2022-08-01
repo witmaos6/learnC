@@ -35,8 +35,9 @@ int main(void)
 
 NumArray::NumArray(vector<int>& nums)
 {
-	//double SegmentHeight = log2(size(nums)); // memory optimization
-	//SegmentTree.reserve(ceil(SegmentHeight));
+	//int SegmentHeight = ceil(log2(size(nums))+1); // memory optimization
+	//int SegmentSize = pow(2, SegmentHeight);
+	//SegmentTree.reserve();
 
 	SegmentSize = size(nums);
 	SegmentTree.resize(SegmentSize * 4);
@@ -106,3 +107,4 @@ int NumArray::sumRangeUtil(int Left, int Right, int index, int sLeft, int sRight
 }
 // 세그먼트 트리를 이용해서 풀었다. 개념은 이해되는데 구현을 하기가 좀 까다로웠다. 인수가 많은게 흠인데 인수를 줄일 방법이 생각나지가 않는다.
 // 세그먼트 트리는 기본적으로 주어진 데이터의양 *4를 하면 넉넉하다고 한다. 그런데 메모리를 절약해야 하는 상황이 발생할 수 있기 때문에 메모리 최적화를 해주는 코드도 넣어봤다.
+// 메모리 최적화 코드를 제출했는데 시간은 더 오래걸리긴 
