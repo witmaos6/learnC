@@ -1,0 +1,5 @@
+﻿  LinkedList.cpp
+C:\Users\159rj\source\repos\LinkedList\LinkedList\LinkedList.cpp(115,15): warning C4101: 'prevNodeOfToInsert' :참조되지 않은 지역 변수입니다.
+C:\Users\159rj\source\repos\LinkedList\LinkedList\LinkedList.cpp(173,15): warning C4101: 'prevNodeOfToDelete' :참조되지 않은 지역 변수입니다.
+C:\Users\159rj\source\repos\LinkedList\LinkedList\LinkedList.cpp(200,15): warning C4101: 'searchNode' :참조되지 않은 지역 변수입니다.
+  LinkedList.vcxproj -> C:\Users\159rj\source\repos\LinkedList\Debug\LinkedList.exe
