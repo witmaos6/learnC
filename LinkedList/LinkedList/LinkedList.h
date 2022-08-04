@@ -4,32 +4,32 @@ using namespace std;
 
 struct Node
 {
-	int data;
+	int Data;
 	Node* Link;
 };
 
 class SingleList
 {
 public:
-	Node* Head;
+	Node* Head = new Node;
 
-	SingleList(Node* create);
+	SingleList(int headData);
 
 	void LinkedListHandler();
 
-	Node* createHeadNode(int initialData);
+	void AddLastNode(int data);
 
-	void addLastNode(Node* head, int data);
+	void AddThisNode(int afterThisData, int addData);
 
-	void addThisNode(Node* head, int afterThisData, int addData);
+	void DeleteLastNode();
 
-	void deleteLastNode(Node* head);
+	void DeleteThisNode(int deleteData);
 
-	void deleteThisNode(Node* head, int deleteData);
+	void DeleteHeadNode(int deleteData);
 
-	void deleteHeadNode(Node* head, int deleteData);
+	void SearchThisNode(int thisData);
 
-	void searchThisNode(Node* head, int thisData);
+	void PrintList();
 
-	void printList(Node* List);
+	~SingleList();
 };
