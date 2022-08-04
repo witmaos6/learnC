@@ -8,98 +8,97 @@ int main(void)
 	cin.tie(nullptr);
 	cout.tie(nullptr);
 
-	Node* ListNode;
-	SingleList List(ListNode);
-	int initialData;
-	cout << "Head data¸¦ ÀÔ·ÂÇÏ¼¼¿ä: ";
-	cin >> initialData;
-	ListNode = List.createHeadNode(initialData);
+	int HeadData;
+	cout << "Head dataë¥¼ ìž…ë ¥í•˜ì„¸ìš”: ";
+	cin >> HeadData;
 
-	cout << "¿¬°á ¸®½ºÆ® »ý¼º ¿Ï·á" << '\n';
-
-	int AddData;
-	cout << "¿¬°á ¸®½ºÆ®¿¡ Ãß°¡ÇÒ Value¸¦ ÀÔ·ÂÇÏ¼¼¿ä: ";
-	for (int i = 0; i < 3; i++)
-	{
-		cin >> AddData;
-		List.addLastNode(ListNode, AddData);
-	}
-	cout << '\n';
-	List.printList(ListNode);
-	cout << '\n';
-
-	int SearchData;
-	cout << "Å½»öÇÒ ³ëµåÀÇ Value¸¦ ÀÔ·ÂÇÏ¼¼¿ä: ";
-	cin >> SearchData;
-	List.searchThisNode(ListNode, SearchData);
-	cout << '\n';
-
-	int AfterThisData;
-	cout << "¾î¶² ³ëµå µÚ¿¡ Ãß°¡ÇÏ½Ç °Ì´Ï±î?: ";
-	cin >> AfterThisData;
-	cout << "¾î¶² Value¸¦ °¡Áø ³ëµå¸¦ Ãß°¡ÇÒ°Ç°¡¿ä?: ";
-	cin >> AddData;
-	List.addThisNode(ListNode, AfterThisData, AddData);
-	List.printList(ListNode);
-	cout << '\n';
-
-	int DeleteNode;
-	cout << "»èÁ¦ÇÒ ³ëµå¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä: ";
-	cin >> DeleteNode;
-	List.deleteThisNode(ListNode, DeleteNode);
-	List.printList(ListNode);
-
-	cout << "¸¶Áö¸· ³ëµå¸¦ »èÁ¦ÇÏ°Ú½À´Ï´Ù. " << '\n';
-	List.deleteLastNode(ListNode);
-	List.printList(ListNode);
-	cout << '\n';
-
-	cout << "ÇÁ·Î±×·¥À» Á¾·áÇÕ´Ï´Ù. bye bye";
+	SingleList List(HeadData);
+	cout << "ë¦¬ìŠ¤íŠ¸ê°€ ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤. " << '\n';
+	List.LinkedListHandler();
 
 	return 0;
 }
 
-SingleList::SingleList(Node* create)
+SingleList::SingleList(int headData)
 {
-	Head = create;
+	Head->Data = headData;
+	Head->Link = nullptr;
 }
 
 void SingleList::LinkedListHandler()
 {
-	string command;
-	cout << "¸í·ÉÀ» ÀÔ·ÂÇÏ¼¼¿ä. " << '\n';
-	cin >> command;
-	if(command == "create")
+	string Command;
+	while (1)
 	{
-		int initialData;
-		cout << "Head data¸¦ ÀÔ·ÂÇÏ¼¼¿ä: ";
-		cin >> initialData;
-		
+		cout << "ëª…ë ¹ì„ ìž…ë ¥í•˜ì„¸ìš”: " << '\n';
+		cin >> Command;
+
+		if (Command == "AddLastNode")
+		{
+			int TheNumberOfInputData;
+			cout << "ëª‡ê°œì˜ dataë¥¼ ìž…ë ¥í•˜ì‹œê² ìŠµë‹ˆê¹Œ: ";
+			cin >> TheNumberOfInputData;
+			int AddData;
+			cout << "ì¶”ê°€í•  dataë¥¼ ìž…ë ¥í•˜ì„¸ìš”: ";
+			for (int i = 0; i < TheNumberOfInputData; i++)
+			{
+				cin >> AddData;
+				AddLastNode(AddData);
+			}
+		}
+		else if (Command == "AddThisNode")
+		{
+			int AfterThisNode;
+			int AddData;
+			cout << "ì–´ë–¤ ë…¸ë“œ ë’¤ì— ì¶”ê°€í•˜ì‹¤ê²ë‹ˆê¹Œ: ";
+			cin >> AfterThisNode;
+			cout << "ì¶”ê°€í•  dataë¥¼ ìž…ë ¥í•˜ì„¸ìš”: ";
+			cin >> AddData;
+			AddThisNode(AfterThisNode, AddData);
+		}
+		else if (Command == "SearchThisNode")
+		{
+			int SearchData;
+			cout << "íƒìƒ‰í•  ë…¸ë“œì˜ dataë¥¼ ìž…ë ¥í•˜ì„¸ìš”: ";
+			cin >> SearchData;
+			SearchThisNode(SearchData);
+		}
+		else if (Command == "DeleteLastNode")
+		{
+			DeleteLastNode();
+		}
+		else if (Command == "DeleteThisNode")
+		{
+			int DeleteNode;
+			cout << "ì‚­ì œí•  dataë¥¼ ìž…ë ¥í•˜ì„¸ìš”: ";
+			cin >> DeleteNode;
+			DeleteThisNode(DeleteNode);
+		}
+		else if (Command == "PrintList")
+		{
+			PrintList();
+		}
+		else if(Command == "Exit")
+		{
+			return;
+		}
 	}
 }
 
-Node* SingleList::createHeadNode(int initialData)
-{
-	Node* Head = new Node;
-	Head->data = initialData;
-	Head->Link = nullptr;
-	return Head;
-}
-
-void SingleList::addLastNode(Node* head, int data)
+void SingleList::AddLastNode(int data)
 {
 	Node* NewNode = new Node;
 	Node* LastNode;
-	NewNode->data = data;
+	NewNode->Data = data;
 	NewNode->Link = nullptr;
 
-	if (head == nullptr)
+	if (Head == nullptr)
 	{
-		head = NewNode;
+		Head = NewNode;
 		return;
 	}
 
-	LastNode = head;
+	LastNode = Head;
 	while (LastNode->Link != nullptr)
 	{
 		LastNode = LastNode->Link;
@@ -107,49 +106,50 @@ void SingleList::addLastNode(Node* head, int data)
 	LastNode->Link = NewNode;
 }
 
-void SingleList::addThisNode(Node* head, int afterThisData, int addData)
+void SingleList::AddThisNode(int afterThisData, int addData)
 {
-	Node* prevNodeOfToInsert;
-	prevNodeOfToInsert = head;
+	Node* PrevNodeOfToInsert;
+	PrevNodeOfToInsert = Head;
 	try
 	{
-		while (prevNodeOfToInsert->data != afterThisData)
+		while (PrevNodeOfToInsert->Data != afterThisData)
 		{
-			prevNodeOfToInsert = prevNodeOfToInsert->Link;
-			if (prevNodeOfToInsert == nullptr)
+			if (PrevNodeOfToInsert->Link == nullptr)
 			{
-				throw prevNodeOfToInsert;
+				throw PrevNodeOfToInsert;
 			}
+			PrevNodeOfToInsert = PrevNodeOfToInsert->Link;
 		}
 		Node* NewNode = new Node;
-		NewNode->data = addData;
-		NewNode->Link = prevNodeOfToInsert->Link;
-		prevNodeOfToInsert->Link = NewNode;
+		NewNode->Data = addData;
+		NewNode->Link = PrevNodeOfToInsert->Link;
+		PrevNodeOfToInsert->Link = NewNode;
 	}
 	catch (Node* prevNodeOfToInsert)
 	{
-		cout << afterThisData << " Value¸¦ °¡Áø ³ëµå°¡ ¾ø½À´Ï´Ù." << '\n';
+		cout << afterThisData << "ë¥¼ ê°€ì§„ ë…¸ë“œê°€ ì—†ìŠµë‹ˆë‹¤." << '\n';
+		cout << prevNodeOfToInsert->Data << "ê°€ ë§ˆì§€ë§‰ ë°ì´í„° ìž…ë‹ˆë‹¤" << '\n';
 	}
 }
 
-void SingleList::deleteLastNode(Node* head)
+void SingleList::DeleteLastNode()
 {
 	Node* prevNodeOfToDelete;
 	Node* deleteNode;
 
-	if (head == nullptr)
+	if (Head == nullptr)
 	{
 		return;
 	}
-	if (head->Link == nullptr)
+	if (Head->Link == nullptr)
 	{
-		delete head;
-		head = nullptr;
+		delete Head;
+		Head = nullptr;
 	}
 	else
 	{
-		prevNodeOfToDelete = head;
-		deleteNode = head->Link;
+		prevNodeOfToDelete = Head;
+		deleteNode = Head->Link;
 
 		while (deleteNode->Link != nullptr)
 		{
@@ -161,24 +161,24 @@ void SingleList::deleteLastNode(Node* head)
 	}
 }
 
-void SingleList::deleteThisNode(Node* head, int deleteData)
+void SingleList::DeleteThisNode(int deleteData)
 {
-	Node* prevNodeOfToDelete = head->Link;
+	Node* prevNodeOfToDelete = Head->Link;
 	Node* deleteNode;
-	if (deleteData == head->data)
+	if (deleteData == Head->Data)
 	{
-		head = prevNodeOfToDelete;
+		Head = prevNodeOfToDelete;
 	}
 
 	try
 	{
-		while (prevNodeOfToDelete->Link->data != deleteData)
+		while (prevNodeOfToDelete->Link->Data != deleteData)
 		{
-			prevNodeOfToDelete = prevNodeOfToDelete->Link;
-			if (prevNodeOfToDelete == nullptr)
+			if (prevNodeOfToDelete->Link == nullptr)
 			{
 				throw prevNodeOfToDelete;
 			}
+			prevNodeOfToDelete = prevNodeOfToDelete->Link;
 		}
 		deleteNode = prevNodeOfToDelete->Link;
 		prevNodeOfToDelete->Link = deleteNode->Link;
@@ -186,44 +186,46 @@ void SingleList::deleteThisNode(Node* head, int deleteData)
 	}
 	catch (Node* prevNodeOfToDelete)
 	{
-		cout << deleteData << "°ªÀ» °¡Áø ³ëµå°¡ ¾ø½À´Ï´Ù. " << '\n';
+		cout << deleteData << "ê°’ì„ ê°€ì§„ ë…¸ë“œê°€ ì—†ìŠµë‹ˆë‹¤. " << '\n';
+		cout << prevNodeOfToDelete->Data << "ê°€ ë§ˆì§€ë§‰ ë°ì´í„° ìž…ë‹ˆë‹¤." << '\n';
 	}
 }
 
-void SingleList::deleteHeadNode(Node* head, int deleteData)
+void SingleList::DeleteHeadNode(int deleteData)
 {
-	//head = head->headNode->Link;
+	//Head = Head->headNode->Link;
 }
 
-void SingleList::searchThisNode(Node* head, int thisData)
+void SingleList::SearchThisNode(int thisData)
 {
-	Node* searchNode = head;
+	Node* searchNode = Head;
 
 	try
 	{
-		while (searchNode->data != thisData)
+		while (searchNode->Data != thisData)
 		{
-			searchNode = searchNode->Link;
-			if (searchNode == nullptr)
+			if (searchNode->Link == nullptr)
 			{
 				throw searchNode;
 			}
+			searchNode = searchNode->Link;
 		}
-		cout << thisData << " Value¸¦ Ã£¾Ò½À´Ï´Ù. " << '\n';
+		cout << thisData << " Valueë¥¼ ì°¾ì•˜ìŠµë‹ˆë‹¤. " << '\n';
 	}
 	catch (Node* searchNode)
 	{
-		cout << thisData << "°ªÀ» °¡Áø ³ëµå°¡ ¾ø½À´Ï´Ù. " << '\n';
+		cout << thisData << "ê°’ì„ ê°€ì§„ ë…¸ë“œê°€ ì—†ìŠµë‹ˆë‹¤. " << '\n';
+		cout << searchNode->Data << "ê°€ ë§ˆì§€ë§‰ ë°ì´í„° ìž…ë‹ˆë‹¤. " << '\n';
 	}
 }
 
-void SingleList::printList(Node* List)
+void SingleList::PrintList()
 {
-	Node* printNode = List;
-	cout << " ¸®½ºÆ® Ãâ·Â " << '\n';
+	Node* printNode = Head;
+	cout << "ë¦¬ìŠ¤íŠ¸ ì¶œë ¥ " << '\n';
 	while (printNode != nullptr)
 	{
-		cout << printNode->data;
+		cout << printNode->Data;
 		printNode = printNode->Link;
 		if (printNode != nullptr)
 		{
@@ -231,4 +233,9 @@ void SingleList::printList(Node* List)
 		}
 	}
 	cout << '\n';
+}
+
+SingleList::~SingleList()
+{
+	delete Head;
 }
