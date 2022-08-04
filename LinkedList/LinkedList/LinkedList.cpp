@@ -82,6 +82,15 @@ void SingleList::LinkedListHandler()
 		{
 			return;
 		}
+		else
+		{
+			cout << "존재하지 않는 명령어 입니다. " << '\n';
+			for(string& command: CommandList)
+			{
+				cout << command << ' ';
+			}
+			cout << '\n' << "현재 사용할 수 있는 명령어목록 입니다." << '\n';
+		}
 	}
 }
 
@@ -144,7 +153,7 @@ void SingleList::DeleteLastNode()
 	if (Head->Link == nullptr)
 	{
 		delete Head;
-		Head = nullptr;
+		Head = new Node;
 	}
 	else
 	{
@@ -163,16 +172,16 @@ void SingleList::DeleteLastNode()
 
 void SingleList::DeleteThisNode(int deleteData)
 {
-	Node* prevNodeOfToDelete = Head->Link;
+	Node* prevNodeOfToDelete = Head;
 	Node* deleteNode;
-	if (deleteData == Head->Data)
-	{
-		Head = prevNodeOfToDelete;
-	}
-
 	try
 	{
-		while (prevNodeOfToDelete->Link->Data != deleteData)
+		if(Head->Data == deleteData)
+		{
+			DeleteHeadNode();
+			return;
+		}
+		while (prevNodeOfToDelete->Data != deleteData)
 		{
 			if (prevNodeOfToDelete->Link == nullptr)
 			{
@@ -191,9 +200,15 @@ void SingleList::DeleteThisNode(int deleteData)
 	}
 }
 
-void SingleList::DeleteHeadNode(int deleteData)
+void SingleList::DeleteHeadNode()
 {
-	//Head = Head->headNode->Link;
+	if(Head->Link == nullptr)
+	{
+		Head = new Node;
+		return;
+	}
+	Node* NextNode = Head->Link;
+	Head = NextNode;
 }
 
 void SingleList::SearchThisNode(int thisData)
