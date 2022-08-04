@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <vector>
 using namespace std;
 
 struct Node
@@ -11,6 +12,10 @@ struct Node
 class SingleList
 {
 public:
+	vector<string> CommandList = {"AddLastNode","AddThisNode","DeleteLastNode","DeleteThisNode",
+		"SearchThisNode", "PrintList"
+	};
+
 	Node* Head = new Node;
 
 	SingleList(int headData);
@@ -25,7 +30,7 @@ public:
 
 	void DeleteThisNode(int deleteData);
 
-	void DeleteHeadNode(int deleteData);
+	void DeleteHeadNode();
 
 	void SearchThisNode(int thisData);
 
