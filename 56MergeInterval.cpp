@@ -1,3 +1,4 @@
+// {start, end} 로 이루어진 배열이 주어지면 오버랩 되는 부분을 합친 후 반환하라
 #include <iostream>
 #include <algorithm>
 #include <vector>
@@ -29,8 +30,8 @@ int main(void)
 vector<vector<int>> Solution::merge(vector<vector<int>>& intervals)
 {
 	int IntervalsSize = static_cast<int>(size(intervals));
-	sort(intervals.begin(), intervals.end());
-	for (int row = 0; row < IntervalsSize - 1; row++)
+	sort(intervals.begin(), intervals.end()); // intervals[row][0] 값을 기준으로 정렬
+	for (int row = 0; row < IntervalsSize - 1; row++) 
 	{
 		if (intervals[row][1] >= intervals[row + 1][0])
 		{
@@ -78,3 +79,5 @@ void Solution::Print2DVector(vector<vector<int>>& intervals)
 		cout << '\n';
 	}
 }
+// merge의 시간복잡도는 O(NlogN)+O(N^2)이고 MergeSpace의 시간복잡도는 O(NlogN)+O(N)이다.
+// mewge는 erase연산을 하기때문에 worst case에서 연산시간이 더 걸린다.
