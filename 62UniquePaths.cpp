@@ -1,3 +1,4 @@
+// 0,0에서 m,n 까지 갈 수 있는 경우의 수를 구하라(중복은 안된다.)
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -8,7 +9,6 @@ public:
 	int ColGoal;
 	vector<vector<int>> Paths;
 	int uniquePaths(int m, int n);
-	void searchPath(int row, int col);
 };
 
 int main(void)
@@ -46,16 +46,6 @@ int Solution::uniquePaths(int m, int n)
 			Paths[row][col] = Paths[row - 1][col] + Paths[row][col - 1];
 		}
 	}
-	int xStart = 0;
-	int yStart = 0;
 	return Paths[m - 1][n - 1];
 }
-
-void Solution::searchPath(int row, int col)
-{
-	if (row >= RowGoal - 1 || col >= ColGoal - 1)
-	{
-		return;
-	}
-	
-}
+// DP를 이용하여 경우의 수를 구하는 문제다.
