@@ -1,4 +1,5 @@
-﻿#include <iostream>
+// board에서 string을 찾아라 같은 셀의 문자는 중첩되지 않는다.
+#include <iostream>
 #include <vector>
 using namespace std;
 
@@ -10,8 +11,8 @@ public:
 	size_t WordLength = 0;
 	size_t RowSize = 0;
 	size_t ColSize = 0;
-	bool exist(vector<vector<char>>& board, string word);
-	bool ExistChar(unsigned int row, unsigned int col, unsigned int i);
+	bool exist(vector<vector<char>>& board, string word); // O(N*M)
+	bool ExistChar(unsigned int row, unsigned int col, unsigned int i); // O(N*M)
 };
 
 int main()
@@ -53,7 +54,7 @@ bool Solution::exist(vector<vector<char>>& board, string word)
 	return false;
 }
 
-bool Solution::ExistChar(unsigned int row, unsigned int col, unsigned int i)
+bool Solution::ExistChar(unsigned int row, unsigned int col, unsigned int i) 
 {
 	if (i == WordLength)
 	{
@@ -73,3 +74,5 @@ bool Solution::ExistChar(unsigned int row, unsigned int col, unsigned int i)
 	Board[row][col] = Word[i];
 	return Status;
 }
+// DFS로 문제를 풀었다. 지나간 문자에는 다시 접근할 수 없어 처음에는 2차원 배열을 생성하여 마킹하려고 했지만 메모리를 초과했다.
+// discuss에서 마킹한 방식을 보고 배웠다.
