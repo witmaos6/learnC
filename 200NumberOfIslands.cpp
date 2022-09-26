@@ -1,4 +1,5 @@
-﻿#include <iostream>
+// 0은 바다 1은 육지라고 했을 때 동서남북이 바다로 둘러싸인 경우 하나의 섬이다. 섬의 개수를 구하라
+#include <iostream>
 #include <vector>
 using namespace std;
 
@@ -35,7 +36,7 @@ int main()
 	return 0;
 }
 
-int Solution::numIslands(vector<vector<char>>& grid)
+int Solution::numIslands(vector<vector<char>>& grid) // O(N^2)
 {
 	int NumberOfiSland = 0;
 	RowSize = size(grid);
@@ -58,7 +59,7 @@ int Solution::numIslands(vector<vector<char>>& grid)
 	return NumberOfiSland;
 }
 
-void Solution::DFS(vector<vector<char>>& grid, Point p)
+void Solution::DFS(vector<vector<char>>& grid, Point p) // 
 {
 	if (p.Row >= RowSize || p.Col >= ColSize || grid[p.Row][p.Col] == Invitation || grid[p.Row][p.Col] == '0')
 	{
@@ -66,7 +67,7 @@ void Solution::DFS(vector<vector<char>>& grid, Point p)
 	}
 
 	grid[p.Row][p.Col] = Invitation;
-	DFS(grid, Point{ p.Row + 1, p.Col });
+	DFS(grid, Point{ p.Row + 1, p.Col }); // Row++; 이후 p값만 넣어도 되지만 그럴 경우에 DFS함수 호출 후 다시 Row--; 해줘야 한다.
 	if (p.Col != 0)
 	{
 		DFS(grid, Point{ p.Row, p.Col - 1 });
@@ -77,3 +78,6 @@ void Solution::DFS(vector<vector<char>>& grid, Point p)
 	}
 	DFS(grid, Point{ p.Row, p.Col + 1 });
 }
+// Grid의 row와 col 값을 int i, int j 에서 구조체를 이용해 Point p로 바꿔봤다.
+// 파라미터는 간소화 되긴 했지만 그렇다고 읽기 더 쉬운 코드가 된 것 같지는 않다.
+// 특히 DFS안에서 DFS함수를 호출 할 때는 원본의 변경 없이 Row의 값만 바꿔야 되는데 그래서 더 복잡해졌다.
