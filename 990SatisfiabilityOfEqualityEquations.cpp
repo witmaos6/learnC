@@ -1,6 +1,6 @@
-﻿#include <iostream>
+// equations의 방정식이 주어졌을 때 방정식이 모순되면 false를 그렇지 않으면 true를 반환하라
+#include <iostream>
 #include <vector>
-#include <map>
 using namespace std;
 
 class Solution
@@ -57,3 +57,5 @@ int Solution::Find(vector<int>& arr, int x)
 	}
 	return arr[x];
 }
+// UnionFind와 disjoint set이라는 새로운 개념을 배웠다. disjoint set은 교집합이 없는 서로 다른 집합을 저장하는 자료구조이고 Union Find는 이 자료구조에서 집합을 찾는 방법이다.
+// 사이트에서 중요도가 1000번대 이하로 배치되어 있어 개념만 학습하고 넘어간다.
