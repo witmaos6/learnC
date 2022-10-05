@@ -10,6 +10,7 @@ public:
 	{
 		unsigned int Row = 0;
 		unsigned int Col = 0;
+		Point(unsigned int row, unsigned int col) : Row(row), Col(col) {}
 	};
 	unsigned int RowSize = 0;
 	unsigned int ColSize = 0;
@@ -39,8 +40,8 @@ int main()
 int Solution::numIslands(vector<vector<char>>& grid) // O(N^2)
 {
 	int NumberOfiSland = 0;
-	RowSize = size(grid);
-	ColSize = size(grid[0]);
+	RowSize = static_cast<unsigned int>(size(grid));
+	ColSize = static_cast<unsigned int>(size(grid[0]));
 
 	for (unsigned int i = 0; i < RowSize; i++)
 	{
@@ -67,16 +68,16 @@ void Solution::DFS(vector<vector<char>>& grid, Point p) //
 	}
 
 	grid[p.Row][p.Col] = Invitation;
-	DFS(grid, Point{ p.Row + 1, p.Col }); // Row++; 이후 p값만 넣어도 되지만 그럴 경우에 DFS함수 호출 후 다시 Row--; 해줘야 한다.
+	DFS(grid, Point(p.Row + 1, p.Col));
 	if (p.Col != 0)
 	{
-		DFS(grid, Point{ p.Row, p.Col - 1 });
+		DFS(grid, Point(p.Row, p.Col - 1));
 	}
 	if (p.Row != 0)
 	{
-		DFS(grid, Point{ p.Row - 1, p.Col });
+		DFS(grid, Point(p.Row - 1, p.Col));
 	}
-	DFS(grid, Point{ p.Row, p.Col + 1 });
+	DFS(grid, Point(p.Row, p.Col + 1));
 }
 // Grid의 row와 col 값을 int i, int j 에서 구조체를 이용해 Point p로 바꿔봤다.
 // 파라미터는 간소화 되긴 했지만 그렇다고 읽기 더 쉬운 코드가 된 것 같지는 않다.
