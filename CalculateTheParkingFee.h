@@ -40,7 +40,7 @@ vector<int> Solution::CalculateParkingFee(vector<int> fees, vector<string> recor
     return answer;
 }
 
-void Solution::ReadRecods(map<CarNumber, vector<string>>& RecordPerCar, const vector<string>& Records) // O(NMlogNM) N==Records.size() M==Record.size()
+void Solution::ReadRecods(map<CarNumber, vector<string>>& RecordPerCar, const vector<string>& Records) // O(NMlogN) N==Records.size() M==Record.size()
 {
     for (const string& Record : Records)
     {
