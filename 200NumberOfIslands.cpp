@@ -49,9 +49,7 @@ int Solution::numIslands(vector<vector<char>>& grid) // O(N^2)
 		{
 			if (grid[i][j] == '1')
 			{
-				Point p;
-				p.Row = i;
-				p.Col = j;
+				Point p(i, j);
 				DFS(grid, p);
 				NumberOfiSland++;
 			}
