@@ -40,7 +40,7 @@ vector<int> Solution::LionScore(int n, vector<int> info) {
 	return answer;
 }
 
-void Solution::Try(int n, vector<int>& info, vector<int>& Lion, int TryIndex)
+void Solution::Try(int n, vector<int>& info, vector<int>& Lion, int TryIndex) // O(1)
 {
 	if (TryIndex == 11 || n == 0) {
 		Lion[10] += n;
@@ -58,7 +58,7 @@ void Solution::Try(int n, vector<int>& info, vector<int>& Lion, int TryIndex)
 	Try(n, info, Lion, TryIndex + 1);
 }
 
-void Solution::CalculateScore(vector<int>& info, vector<int>& Lion)
+void Solution::CalculateScore(vector<int>& info, vector<int>& Lion) //O(1)
 {
 	int ApeachScore = 0;
 	int LionScore = 0;
@@ -85,7 +85,7 @@ void Solution::CalculateScore(vector<int>& info, vector<int>& Lion)
 	}
 }
 
-bool Solution::bAreMoreArrowsOnTheSmallScore(vector<int>& Lion)
+bool Solution::bAreMoreArrowsOnTheSmallScore(vector<int>& Lion) // O(1)
 {
 	for (int i = 10; i >= 0; i--) {
 		if (Lion[i] > answer[i])
