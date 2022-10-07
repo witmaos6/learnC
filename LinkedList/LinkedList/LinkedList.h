@@ -20,6 +20,8 @@ public:
 
 	bool bHaveNext(Node* node);
 
+	bool bListEmpty(List& list);
+
 	void InsertTail(List& list, const int& val);
 
 	void InsertThis(List& list , const int& val, const int& after);
@@ -42,6 +44,11 @@ Node* LinkedList::CreateNode(const int& val)
 inline bool LinkedList::bHaveNext(Node* node)
 {
 	return node->next == nullptr ? false : true;
+}
+
+inline bool LinkedList::bListEmpty(List& list)
+{
+	return list.Head == nullptr ? true : false;
 }
 
 void LinkedList::InsertTail(List& list, const int& val)
