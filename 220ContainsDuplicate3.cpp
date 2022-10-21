@@ -1,4 +1,5 @@
-﻿#include <iostream>
+// nums와 indexDiff, valueDiff가 주어진다. i!=j 일 때 nums[i] == nums[j], abs(i-j) <= indexDiff, abs(nums[i]-nums[j]) <= valueDiff 조건이 성립하는 쌍이 있다면 true반환
+#include <iostream>
 #include <vector>
 #include <unordered_map>
 using namespace std;
@@ -26,7 +27,7 @@ int main()
 	return 0;
 }
 
-bool Solution::containsNearbyAlmostDuplicate(vector<int>& nums, int indexDiff, int valueDiff)
+bool Solution::containsNearbyAlmostDuplicate(vector<int>& nums, int indexDiff, int valueDiff) // O(N) N==nums.size();
 {
 	int NumsSize = static_cast<int>(nums.size());
 	unordered_map<int, int> Buckets;
@@ -66,3 +67,5 @@ bool Solution::containsNearbyAlmostDuplicate(vector<int>& nums, int indexDiff, i
 
 	return false;
 }
+// 처음에는 abs(i-j) <= indexDiff가 성립하는 경우들을 탐색하며 abs(nums[i]-nums[j]) <= valueDiff인 경우를 탐색했는데 시간초과가 떴다.
+// 
