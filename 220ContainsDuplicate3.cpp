@@ -36,11 +36,11 @@ bool Solution::containsNearbyAlmostDuplicate(vector<int>& nums, int indexDiff, i
 	{
 		int Bucket = nums[i] / (valueDiff + 1);
 
-		if (nums[i] < 0)
+		if (nums[i] < 0) // 음수일 경우에는 감소연산자를 써줘야 한다. -1/2는 0이 되기 때문이다.
 		{
 			--Bucket;
 		}
-		if (Buckets.find(Bucket) != Buckets.end())
+		if (Buckets.find(Bucket) != Buckets.end()) // 같은 Bucket안에 있다는 것은 abs(nums[i]-nums[j]) 가 성립한다는 것이다.
 		{
 			return true;
 		}
@@ -53,7 +53,7 @@ bool Solution::containsNearbyAlmostDuplicate(vector<int>& nums, int indexDiff, i
 		{
 			return true;
 		}
-		if (Buckets.size() > indexDiff)
+		if (Buckets.size() > indexDiff) // unordered_map의 크리를 indexDiff로 유지하면 abs(i-j) <= indexDiff 조건을 유지시킬 수 있다.
 		{
 			int Key = nums[i - indexDiff] / (valueDiff + 1);
 
@@ -68,4 +68,4 @@ bool Solution::containsNearbyAlmostDuplicate(vector<int>& nums, int indexDiff, i
 	return false;
 }
 // 처음에는 abs(i-j) <= indexDiff가 성립하는 경우들을 탐색하며 abs(nums[i]-nums[j]) <= valueDiff인 경우를 탐색했는데 시간초과가 떴다.
-// 
+// Unordered_map으로 SubSet을 만들어 시도를 했다가 음수 파트에서 막혀 Discuss를 확인하여 그 문제를 알아내고 풀었다.
