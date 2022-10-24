@@ -3,7 +3,7 @@
 
 #include "LinkedList.h"
 using namespace std;
-
+// LinkedList.h를 토대로 unordered_set을 만들었다. 해쉬값과 Bucket값은 포함하지 않았고 추후에 다른 걸로 만들생각
 struct Hash
 {
 	int Key;
@@ -55,7 +55,7 @@ inline void Unordered_set::Insert(const int& Key)
 	Hash NewHash = Hashing(Key);
 	if (Find(NewHash))
 	{
-		cout << "�����ϴ� Key�� �Դϴ�.\n";
+		cout << "존재하는 Key값 입니다.\n";
 	}
 	else
 	{
@@ -94,14 +94,14 @@ inline bool Unordered_set::Find(const int& Key)
 	return (head->value == Key) ? true : false;
 }
 
-inline void Unordered_set::Delete(const int& Key)
+inline void Unordered_set::Delete(const int& Key) // DeleteHead실행 할 때 버그 있음, 원인 모
 {
 	Hash DeleteHash = Hashing(Key);
 	List DeleteList = Uset[DeleteHash.BucketNumber];
 
 	if(DeleteList.Head == nullptr)
 	{
-		std::cout << "�ش簪�� �������� �ʽ��ϴ�. " << '\n';
+		std::cout << "해당값은 존재하지 않습니다. " << '\n';
 	}
 	else
 	{
