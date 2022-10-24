@@ -1,4 +1,5 @@
-﻿#include <bitset>
+// vector<string> arr 이 주어질 때 중복된 문자가 없는 가장 긴 문자열의 길이 조합을 찾아라
+#include <bitset>
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -39,7 +40,7 @@ int Solution::maxLength(vector<string>& arr)
 	ArrSize = static_cast<int>(arr.size());
 	ArrToCharacter.reserve(ArrSize);
 
-	for (string& s : arr)
+	for (string& s : arr) // O(N) N == arr.size();
 	{
 		vector<int> Temp = ToCharacter(s);
 		if (!Temp.empty())
@@ -49,7 +50,7 @@ int Solution::maxLength(vector<string>& arr)
 	}
 
 	ArrSize = static_cast<int>(ArrToCharacter.size());
-	for (int i = 0; i < ArrSize; i++)
+	for (int i = 0; i < ArrSize; i++) // O(N)
 	{
 		DFS(i + 1, ArrToCharacter[i]);
 	}
@@ -57,7 +58,7 @@ int Solution::maxLength(vector<string>& arr)
 	return MaximumLength;
 }
 
-vector<int> Solution::ToCharacter(string& s)
+vector<int> Solution::ToCharacter(string& s) // Maximum s.size == 26
 {
 	vector<int> Character(26);
 
@@ -86,6 +87,7 @@ void Solution::DFS(int Index, vector<int> CurrentCombi)
 	{
 		vector<int> NewCombi = CurrentCombi;
 		int Count = 0;
+		bool flag =true;
 		for (int j = 0; j < 26; j++)
 		{
 			NewCombi[j] += ArrToCharacter[i][j];
@@ -93,9 +95,17 @@ void Solution::DFS(int Index, vector<int> CurrentCombi)
 			{
 				Count++;
 			}
+			if(NewCombi[j] > 1)
+			{
+				flag = false;
+				break;
+			}
 		}
-		MaximumLength = max(MaximumLength, Count);
-		DFS(i + 1, NewCombi);
+		if(flag)
+		{
+			DFS(i + 1, NewCombi);
+			MaximumLength = max(MaximumLength, Count);
+		}
 	}
 }
 
@@ -151,3 +161,6 @@ bool Solution::bHaveDuplicationBit(bitset<26>& a, bitset<26>& c)
 {
 	return (a & c).any();
 }
+
+// 처음 풀이법은 bitset과 유사하긴 하나 계산이 오래걸린다.
+// 최적화 작업을 하다가 bitset이 생각나서 그냥 bitset으로 다시 풀었는데 훨씬 빠르다. bitset 공부를 더 해야겠다. 필요할 때 바로 생각나야 되는데...
