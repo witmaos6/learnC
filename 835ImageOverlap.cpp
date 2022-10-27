@@ -1,4 +1,6 @@
-﻿#include <iostream>
+// 하나의 이미지를 상하좌우로 움직여서 다른 이미지와 비교할 수 있다. 이미지를 움직였을 때 이미지 크기의 범위를 벗어나는 것은 전부 없앤다.
+// 이미지를 움직여서 다른 이미지와 비교하고 오버랩되는 1의 최대 개수를 구하여라 ,이미지는 정방행렬이며 두개의 이미의 크기는 같다.
+#include <iostream>
 #include <vector>
 using namespace std;
 
@@ -30,7 +32,7 @@ int main()
 	return 0;
 }
 
-int Solution::largestOverlap(vector<vector<int>>& img1, vector<vector<int>>& img2)
+int Solution::largestOverlap(vector<vector<int>>& img1, vector<vector<int>>& img2) //O(N^2) N == img1.size(); (N*2-1)^2 만큼의 연산이 필요하다.
 {
 	SideLength = static_cast<int>(img1.size());
 	int MaxNumberOfOverlap = INT_MIN;
@@ -46,7 +48,7 @@ int Solution::largestOverlap(vector<vector<int>>& img1, vector<vector<int>>& img
 	return MaxNumberOfOverlap;
 }
 
-int Solution::CountNumberOfOverlap(vector<vector<int>>& image1, vector<vector<int>>& image2, int& ShiftRow, int& ShiftCol)
+int Solution::CountNumberOfOverlap(vector<vector<int>>& image1, vector<vector<int>>& image2, int& ShiftRow, int& ShiftCol) // O(N^2)
 {
 	int NumberOfOverlap = 0;
 
@@ -71,7 +73,7 @@ int Solution::largestOverlapUsingBits(vector<vector<int>>& img1, vector<vector<i
 	SideLength = static_cast<int>(img1.size());
 	vector<unsigned int> bits1, bits2;
 
-	for (int i = 0; i < SideLength; ++i) 
+	for (int i = 0; i < SideLength; ++i) // O(N^2) N == img1.size();
 	{
 		int b1 = 0, b2 = 0;
 
@@ -84,19 +86,8 @@ int Solution::largestOverlapUsingBits(vector<vector<int>>& img1, vector<vector<i
 		bits2.push_back(b2);
 	}
 
-	for(unsigned int& bit : bits1)
-	{
-		cout << bit << ' ';
-	}
-	cout << '\n';
-	for (unsigned int& bit : bits2)
-	{
-		cout << bit << ' ';
-	}
-	cout << '\n';
-
 	int ans = 0;
-	for (int i = -SideLength + 1; i < SideLength; ++i) 
+	for (int i = -SideLength + 1; i < SideLength; ++i) // O(N^3)
 	{
 		for (int j = -SideLength + 1; j < SideLength; ++j) 
 		{
@@ -107,6 +98,8 @@ int Solution::largestOverlapUsingBits(vector<vector<int>>& img1, vector<vector<i
 				if (k + i >= 0 && k + i < SideLength) 
 				{
 					overlap += __popcnt(j < 0 ? bits1[k] & (bits2[k + i] << -j) : bits1[k] & (bits2[k + i] >> j));
+					//gcc 환경에서는 __builtin_popcount 함수를 쓰면 된다.
+					//visual studio는 MSVC기 때문에 __popcnt를 사용했다.
 				}
 			}
 			ans = max(ans, overlap);
@@ -127,3 +120,6 @@ void Solution::PrintMaxrix(vector<vector<int>>& matrix)
 		cout << '\n';
 	}
 }
+// 처음에는 DFS로 접근하려 했으나 탐색해야 하는 범위가 일정하다는 것을 파악하고 백트래킹으로 풀었다.
+// Overlap 계산은 O(N^2) 이동은 O(N^2) 이동할 때마다 Overlap계산을 하기 때문에 최종 시간복잡도는 O(N^4)이다.
+// UsingBits는 시간복잡도가 O(N^3)인데 어떤식으로 동작하는지 이해가 좀 필요하다.
