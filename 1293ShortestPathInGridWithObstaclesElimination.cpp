@@ -1,4 +1,5 @@
-﻿#include <algorithm>
+// 장애물이 있는 칸은 1, 없는 칸은 0으로 표시된 Grid와 장애물을 건너 뛸 수 있는 횟수 k가 주어진다. (0,0)에서 Bottom Right로 갈 수 있는 최소 경로를 구하라.
+#include <algorithm>
 #include <iostream>
 #include <vector>
 #include <queue>
@@ -114,3 +115,6 @@ void Solution::DFS(vector<vector<int>> grid, int k, int Row, int Col, int CountM
 	DFS(grid, k, Row, Col + 1, CountMove);
 	DFS(grid, k, Row, Col - 1, CountMove);
 }
+// DFS로 접근했지만 시간초과가 발생했다. Discuss를 보니 BFS를 알고리즘을 사용한게 보였다.
+// 방문한 지역을 표시하는 Visited를 따로 저장하고 그 위치에 k값을 넣는 것이 달랐다. 0,1로 갈 때는 k를 사용하지 않아도 되기 때문에 k값이 그대로 저장된다.
+// 지금까지 최소, 최대값을 구하는 경우는 대부분 DFS나 DP로 풀었는데 BFS도 더 공부해야겠다.
