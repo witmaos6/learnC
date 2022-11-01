@@ -1,4 +1,5 @@
-﻿#include <iostream>
+// 2022 KAKAO TECH INTERNSHIP 성격 유형 
+#include <iostream>
 #include <vector>
 #include <string>
 #include <unordered_map>
@@ -84,3 +85,4 @@ string ReturnTypeResult(unordered_map<char, int>& Score)
 	}
 	return TypeResult;
 }
+// 문제가 간단해서 사이트에서 바로 풀었는데 오타가 많이 난다. 어떤 식으로 풀어야할지 감은 바로 잡히는데 표현이 어렵다. 
