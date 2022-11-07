@@ -3,7 +3,7 @@ using namespace std;
 
 struct Node
 {
-	string S; //  To do: for optimize
+	string S; // 메모리 최적화를 위해서 char가 아닌 string으로 구현
 	vector<Node*> Next;
 	Node() : S("."), Next(0) {}
 };
@@ -123,7 +123,7 @@ void Trie::MergeNode(Node* node, const string& second)
 {
 	if(node->Next.size() > 1)
 	{
-		cout << "����ȭ�� �Ұ����մϴ�.\n";
+		cout << "ÃÖÀûÈ­°¡ ºÒ°¡´ÉÇÕ´Ï´Ù.\n";
 		return;
 	}
 
