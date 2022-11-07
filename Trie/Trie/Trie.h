@@ -20,9 +20,9 @@ public:
 
 	bool Find(Node* root, const string& s);
 
-	void Delete(Node* root, const string& s);
+	void Delete(Node* root, const string& s); // 삭제연산은 의도 하지 않은 단어 삭제의 위험성이 있음
 
-	void MemoryOptimize(Node* root, const string& first, const string& second);
+	void MemoryOptimize(Node* root, const string& first, const string& second); // 자동으로 된다면 좋겠지만 삭제연산과 마찬가지로 위험성이 있음
 
 	void Traverse(Node* root);
 
