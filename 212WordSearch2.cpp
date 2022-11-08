@@ -1,4 +1,5 @@
-﻿#include <iostream>
+// board에서 word를 찾고 존재하는 word를 반환하라. board에서 word가 있다는 것은 인접한 셀들을 연결했을 때 word가 나오는 것을 의미한다.
+#include <iostream>
 #include <vector>
 #include <string>
 #include <unordered_map>
@@ -179,3 +180,6 @@ void Solution::DFS(vector<vector<char>>& board, string& word, int row, int col, 
 		board[row][col] = CurrentC;
 	}
 }
+// leetcode에서 처음으로 trie를 써봤다. 처음에는 DFS로 접근했으나 시간이 부족했다. Discuss에서 DFS도 있었지만 trie 태그가 있어 trie로 접근해봤다.
+// board를 trie로 만들고 words를 찾는 방법을 고려했으나 어림짐작만으로 경우의 수가 상당하다는 것을 파악했다.
+// 그래서 word를 trie로 만드는 방법을 선택했는데 word가 소문자로만 이루어져 있기 때문에 Next에 26개의 Node*를 할당하여 풀었다.
