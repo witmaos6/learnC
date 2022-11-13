@@ -16,13 +16,14 @@ public:
 		{
 			MinHeap.push(num);
 		}
+		HeapSize++;
 
 		if (MaxHeap.size() > MinHeap.size() + 1)
 		{
 			MinHeap.push(MaxHeap.top());
 			MaxHeap.pop();
 		}
-		if (MinHeap.size() > MaxHeap.size())
+		else if (MinHeap.size() > MaxHeap.size())
 		{
 			MaxHeap.push(MinHeap.top());
 			MinHeap.pop();
@@ -31,7 +32,7 @@ public:
 
 	double findMedian()
 	{
-		if (MaxHeap.size() > MinHeap.size())
+		if (HeapSize & 1)
 		{
 			return MaxHeap.top();
 		}
@@ -39,6 +40,7 @@ public:
 	}
 
 private:
+	int HeapSize = 0;
 	priority_queue<int> MaxHeap;
 	priority_queue<int, vector<int>, greater<int>> MinHeap;
 };
@@ -59,3 +61,4 @@ int main()
 	return 0;
 }
 // 우선순위 큐를 공부할 때 MaxHeap과 MinHeap 두개를 이용하여 중간값을 빠르게 찾는 방법을 공부한 적이 있어서 수월하게 풀었다.
+// HeapSize를 추가하여 150ms 절감
