@@ -1,5 +1,6 @@
+// addNum는 컨테이너에 데이터를 추가하는 함수고 findMedian은 중간값을 찾는 함수다.(컨테이너 데이터 개수가 짝수 일 때는 중간값 두개의 합을 2로 나누어 반환한다.)
+// class MedianFinder를 구현하라.
 #include <iostream>
-#include <vector>
 #include <queue>
 using namespace std;
 
@@ -57,3 +58,4 @@ int main()
 
 	return 0;
 }
+// 우선순위 큐를 공부할 때 MaxHeap과 MinHeap 두개를 이용하여 중간값을 빠르게 찾는 방법을 공부한 적이 있어서 수월하게 풀었다.
