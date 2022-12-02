@@ -50,8 +50,6 @@ private:
 	Node* CreateFindNode(const int& key);
 
 	void DeleteHeadNode(Node* head);
-	// To do: ¹öÅ¶¿¡ ³ëµå°¡ ÇÏ³ªÀÏ ¶§ »èÁ¦ ½Ã ¿¡·¯ ¹ß»ıÀ» ÇØ°áÇØ¾ß ÇÑ´Ù
-	// Áö±İ »ı°¢ÇÒ ¼ö ÀÖ´Â ÇØ°áÃ¥Àº headÀÓÀ» Ç¥½ÃÇÏ´Â ³ëµå¸¦ ±âº»°ªÀ¸·Î ¼¼ÆÃÇÏ°Å³ª null°ªÀ» ÀÇ¹ÌÇÏ´Â ³ëµå¸¦ ¸¸µå´Â °ÍÀÌ´Ù.
 };
 
 inline void UnorderedMap::Insert(const int& key, const int& value)
@@ -135,7 +133,7 @@ inline int UnorderedMap::GetValue(const int& key)
 		}
 	}
 
-	cout << "Á¸ÀçÇÏÁö ¾Ê´Â keyÀÔ´Ï´Ù.\n";
+	cout << "ì¡´ì¬í•˜ì§€ ì•ŠëŠ” keyì…ë‹ˆë‹¤.\n";
 	return NotFind;
 }
 
@@ -173,7 +171,15 @@ inline void UnorderedMap::Delete(const int& key)
 
 inline void UnorderedMap::DeleteHeadNode(Node* head)
 {
-	*head = *head->Next;
+	if(head->Next != nullptr)
+	{
+		*head = *head->Next;
+	}
+	else
+	{
+		Umap[head->BucketNumber] = nullptr;
+		delete head;
+	}
 }
 
 inline void UnorderedMap::Traverse()
