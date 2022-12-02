@@ -123,7 +123,8 @@ inline void UnorderedSet::DeleteHeadNode(Node* head)
 	}
 	else
 	{
-		head = nullptr;
+		Uset[head->BucketNumber] = nullptr;
+		delete head;
 	}
 }
 
