@@ -85,7 +85,7 @@ inline void Tree::Insert(Node* root, const int& value)
 	}
 	else if (root->Value == value)
 	{
-		cout << "Áßº¹µÈ °ªÀÔ´Ï´Ù.\n";
+		cout << "ì¤‘ë³µëœ ê°’ìž…ë‹ˆë‹¤.\n";
 	}
 }
 
@@ -98,7 +98,7 @@ inline void Tree::Delete(Node* root, const int& value)
 		Node* DeleteNode = FindDeleteTarget(ParentOfDeleteNode, value);
 		if (bIsLeafNode(DeleteNode))
 		{
-			if (value < ParentOfDeleteNode->Value)
+			if (value > ParentOfDeleteNode->Value)
 			{
 				ParentOfDeleteNode->Right = nullptr;
 			}
@@ -109,7 +109,7 @@ inline void Tree::Delete(Node* root, const int& value)
 		}
 		else if (!bHaveRight(DeleteNode))
 		{
-			if (value < ParentOfDeleteNode->Value)
+			if (value > ParentOfDeleteNode->Value)
 			{
 				ParentOfDeleteNode->Right = DeleteNode->Left;
 			}
@@ -120,7 +120,7 @@ inline void Tree::Delete(Node* root, const int& value)
 		}
 		else if (!bHaveLeft(DeleteNode))
 		{
-			if (value < ParentOfDeleteNode->Value)
+			if (value > ParentOfDeleteNode->Value)
 			{
 				ParentOfDeleteNode->Right = DeleteNode->Right;
 			}
@@ -129,11 +129,24 @@ inline void Tree::Delete(Node* root, const int& value)
 				ParentOfDeleteNode->Left = DeleteNode->Right;
 			}
 		}
+		else
+		{
+			if(value < ParentOfDeleteNode->Value)
+			{
+				ParentOfDeleteNode->Left = DeleteNode->Right;
+				DeleteNode->Right->Left = DeleteNode->Left;
+			}
+			else
+			{
+				ParentOfDeleteNode->Right = DeleteNode->Left;
+				DeleteNode->Left->Right = DeleteNode->Right;
+			}
+		}
 		delete DeleteNode;
 	}
 	else
 	{
-		cout << "Á¸ÀçÇÏÁö ¾Ê´Â °ªÀÔ´Ï´Ù.\n";
+		cout << "ì¡´ìž¬í•˜ì§€ ì•ŠëŠ” ê°’ìž…ë‹ˆë‹¤.\n";
 	}
 }
 
@@ -198,7 +211,7 @@ inline void Tree::BFS(Node* root)
 {
 	if (root == nullptr)
 	{
-		cout << "Æ®¸®°¡ ºñ¾îÀÖ½À´Ï´Ù.\n";
+		cout << "íŠ¸ë¦¬ê°€ ë¹„ì–´ìžˆìŠµë‹ˆë‹¤.\n";
 		return;
 	}
 	LevelOrder(root, 0);
