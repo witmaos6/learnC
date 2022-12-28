@@ -9,7 +9,7 @@ struct Node
 	int Value;
 	Node* Left;
 	Node* Right;
-	int Height; // Height¸¦ »ç¿ëÇÏÁö ¾Ê´Â Áß, Áö¿öµµ »ó°ü¾øÀ» °Í °°´Ù.
+	int Height; // Heightë¥¼ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ” ì¤‘, ì§€ì›Œë„ ìƒê´€ì—†ì„ ê²ƒ ê°™ë‹¤.
 	Node(int value) : Value(value), Left(nullptr), Right(nullptr), Height(0) {}
 };
 
@@ -56,6 +56,12 @@ private:
 	bool bHasLeftNode(Node* node);
 
 	bool bHasRightNode(Node* node);
+	
+public:
+	~AVLTree();
+private:
+	
+	void MemoryClear(Node* node);
 };
 
 inline void AVLTree::Insert(const int& value)
@@ -86,7 +92,7 @@ inline Node* AVLTree::InsertNode(Node* root, const int& value)
 	}
 	else if (root->Value == value)
 	{
-		cout << "Áßº¹µÈ °ªÀÔ´Ï´Ù.\n";
+		cout << "ì¤‘ë³µëœ ê°’ìž…ë‹ˆë‹¤.\n";
 	}
 
 	int CurrentBalance = GetBalance(root);
@@ -269,4 +275,23 @@ bool AVLTree::bHasLeftNode(Node* node)
 bool AVLTree::bHasRightNode(Node* node)
 {
 	return (node->Right != nullptr) ? true : false;
+}
+
+inline void AVLTree::MemoryClear(Node* node)
+{
+	if (bIsLeafNode(node))
+	{
+		delete node;
+	}
+	else
+	{
+		MemoryClear(node->Left);
+		MemoryClear(node->Right);
+		delete node;
+	}
+}
+
+inline AVLTree::~AVLTree()
+{
+	MemoryClear(Root);
 }
