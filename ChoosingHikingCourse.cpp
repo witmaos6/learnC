@@ -29,8 +29,6 @@ struct Compare
 	}
 };
 
-void PrintUmap(unordered_map<int, vector<Vertex>>& Umap);
-
 vector<int> answer = { 0, 10000001 };
 vector<char> VertexInfor;
 vector<int> EdgeIntensity;
@@ -154,14 +152,4 @@ int main()
 	return 0;
 }
 
-void PrintUmap(unordered_map<int, vector<Vertex>>& Umap)
-{
-	for (pair<const int, vector<Vertex>>& e : Umap)
-	{
-		cout << e.first << ": ";
-		for (Vertex& v : e.second)
-		{
-			cout << v.Number << ' ' << v.W << '\n';
-		}
-	}
-}
+// DFS로 시도했을 때 시간초과가 발생하여 DP로 전환했다.
