@@ -44,8 +44,6 @@ private:
 public:
 	void BFS();
 
-	void LevelOrder();
-
 private:
 	vector<queue<int>> LevelNode;
 
@@ -56,11 +54,11 @@ private:
 	bool bHasLeftNode(Node* node);
 
 	bool bHasRightNode(Node* node);
-	
+
 public:
 	~AVLTree();
+
 private:
-	
 	void MemoryClear(Node* node);
 };
 
@@ -78,7 +76,7 @@ inline void AVLTree::Insert(const int& value)
 
 inline Node* AVLTree::InsertNode(Node* root, const int& value)
 {
-	if(root == nullptr)
+	if (root == nullptr)
 	{
 		return CreateNode(value);
 	}
@@ -97,17 +95,17 @@ inline Node* AVLTree::InsertNode(Node* root, const int& value)
 
 	int CurrentBalance = GetBalance(root);
 
-	if(CurrentBalance > 1)
+	if (CurrentBalance > 1)
 	{
-		if(GetBalance(root->Left) < 0)
+		if (GetBalance(root->Left) < 0)
 		{
 			root->Left = LeftRotate(root->Left);
 		}
 		return RightRotate(root);
 	}
-	if(CurrentBalance < -1)
+	if (CurrentBalance < -1)
 	{
-		if(GetBalance(root->Right) > 0)
+		if (GetBalance(root->Right) > 0)
 		{
 			root->Right = RightRotate(root->Right);
 		}
@@ -163,28 +161,28 @@ inline void AVLTree::Delete(const int& value)
 
 inline Node* AVLTree::DeleteNode(Node* root, const int& value)
 {
-	if(root == nullptr)
+	if (root == nullptr)
 	{
 		return root;
 	}
-	if(root->Value > value)
+	if (root->Value > value)
 	{
 		root->Left = DeleteNode(root->Left, value);
 	}
-	else if(root->Value < value)
+	else if (root->Value < value)
 	{
 		root->Right = DeleteNode(root->Right, value);
 	}
-	else if(root->Value == value)
+	else if (root->Value == value)
 	{
-		if(!bHasRightNode(root))
+		if (!bHasRightNode(root))
 		{
 			Node* Temp = root->Left;
 			delete root;
 			root = nullptr;
 			return Temp;
 		}
-		else if(!bHasLeftNode(root))
+		else if (!bHasLeftNode(root))
 		{
 			Node* Temp = root->Right;
 			delete root;
@@ -201,7 +199,7 @@ inline Node* AVLTree::DeleteNode(Node* root, const int& value)
 
 inline Node* AVLTree::MinValueNode(Node* node)
 {
-	if(bHasLeftNode(node))
+	if (bHasLeftNode(node))
 	{
 		return MinValueNode(node->Left);
 	}
@@ -213,43 +211,33 @@ inline void AVLTree::BFS()
 	queue<Node*> BFSQ;
 	BFSQ.push(Root);
 
-	while(!BFSQ.empty())
+	while (!BFSQ.empty())
 	{
-		Node* CurrentNode = BFSQ.front();
-		BFSQ.pop();
-		cout << CurrentNode->Value << ' ';
+		size_t Range = BFSQ.size();
 
-		if(bHasLeftNode(CurrentNode))
+		while(Range--)
 		{
-			BFSQ.push(CurrentNode->Left);
-		}
-		if(bHasRightNode(CurrentNode))
-		{
-			BFSQ.push(CurrentNode->Right);
-		}
-	}
-}
+			Node* CurrNode = BFSQ.front();
+			BFSQ.pop();
 
-inline void AVLTree::LevelOrder()
-{
-	LevelNode.resize(10);
-
-	LevelPush(Root, 0);
-
-	for(queue<int>& level : LevelNode)
-	{
-		while (!level.empty())
-		{
-			cout << level.front() << ' ';
-			level.pop();
+			cout << CurrNode->Value << ' ';
+			if(CurrNode->Left)
+			{
+				BFSQ.push(CurrNode->Left);
+			}
+			if(CurrNode->Right)
+			{
+				BFSQ.push(CurrNode->Right);
+			}
 		}
+
 		cout << '\n';
 	}
 }
 
 inline void AVLTree::LevelPush(Node* node, int level)
 {
-	if(node)
+	if (node)
 	{
 		LevelNode[level].push(node->Value);
 		level++;
