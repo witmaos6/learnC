@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include <queue>
 #include <stack>
 using namespace std;
@@ -36,10 +37,6 @@ private:
 	Node* FindParentOfDeleteNode(Node* parent, Node* node, const int& target);
 
 	Node* FindDeleteTarget(Node* parent, const int& target);
-
-	vector<queue<int>> BFSQueue{ 5 };
-
-	void LevelOrder(Node* node, int Index);
 
 	stack<int> DFSStack;
 
@@ -214,28 +211,31 @@ inline void Tree::BFS(Node* root)
 		cout << "트리가 비어있습니다.\n";
 		return;
 	}
-	LevelOrder(root, 0);
 
-	for (queue<int>& q : BFSQueue)
+	queue<Node*> BFS;
+	BFS.push(root);
+
+	while(!BFS.empty())
 	{
-		while (!q.empty())
+		size_t Range = BFS.size();
+
+		while(Range--)
 		{
-			cout << q.front() << ' ';
-			q.pop();
+			Node* CurrNode = BFS.front();
+			cout << CurrNode->Value << ' ';
+			BFS.pop();
+
+			if(CurrNode->Left)
+			{
+				BFS.push(CurrNode->Left);
+			}
+			if(CurrNode->Right)
+			{
+				BFS.push(CurrNode->Right);
+			}
 		}
 		cout << '\n';
 	}
-}
-
-inline void Tree::LevelOrder(Node* node, int Index)
-{
-	if (node == nullptr)
-	{
-		return;
-	}
-	BFSQueue[Index].push(node->Value);
-	LevelOrder(node->Left, Index + 1);
-	LevelOrder(node->Right, Index + 1);
 }
 
 inline void Tree::DFS(Node* root)
@@ -243,17 +243,11 @@ inline void Tree::DFS(Node* root)
 	if (root)
 	{
 		DFSStack.push(root->Value);
-	}
-	if (bHaveLeft(root))
-	{
 		DFS(root->Left);
-	}
-	if (bHaveRight(root))
-	{
 		DFS(root->Right);
-	}
-	cout << DFSStack.top() << ' ';
-	DFSStack.pop();
+		cout << DFSStack.top() << ' ';
+		DFSStack.pop();
+	}	
 }
 
 inline void Tree::PreOrder(Node* root)
@@ -299,4 +293,58 @@ inline bool Tree::bHaveRight(Node* node)
 inline bool Tree::bIsLeafNode(Node* node)
 {
 	return (node->Left == nullptr && node->Right == nullptr) ? true : false;
+}
+
+void BSTHandler()
+{
+	Tree T;
+	int InitialValue = 0;
+	cout << "Root값을 입력하세요: ";
+	cin >> InitialValue;
+	Node* Root = T.CreateNode(InitialValue);
+	int Command = 0;
+
+	do
+	{
+		cout << "명령을 입력하세요.\n";
+		cout << "1.Insert\n";
+		cout << "2.Find\n";
+		cout << "3.Delete\n";
+		cout << "4.BFS\n";
+		cout << "5.DFS\n";
+		cout << "6.InOrder\n";
+		cin >> Command;
+		switch (Command)
+		{
+		case 1: int InsertValue;
+			cout << "push할 값을 입력하세요: ";
+			cin >> InsertValue;
+			T.Insert(Root, InsertValue);
+			break;
+		case 2: int FindValue;
+			cout << "찾을 값을 입력하세요: ";
+			cin >> FindValue;
+			cout << T.Find(Root, FindValue) << '\n';
+			break;
+		case 3: int DeleteValue;
+			cout << "삭제할 값을 입력하세요: ";
+			cin >> DeleteValue;
+			T.Delete(Root, DeleteValue);
+			break;
+		case 4: cout << "너비 우선 탐색을 시작합니다.\n";
+			T.BFS(Root);
+			cout << endl;
+			break;
+		case 5: cout << "깊이 우선 탐색을 시작합니다.\n";
+			T.DFS(Root);
+			cout << endl;
+			break;
+		case 6: cout << "중위 순회를 시작합니다.\n";
+			T.InOrder(Root);
+			cout << endl;
+			break;
+		case 0: cout << "종료합니다. "; break;
+		default: cout << "잘못된 명령입니다. \n"; break;
+		}
+	} while (Command != 0);
 }
