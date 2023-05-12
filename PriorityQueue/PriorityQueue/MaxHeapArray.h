@@ -12,11 +12,11 @@ public:
 
 	void Traverse(const vector<int>& Heap);
 private:
-	int CalculateParentLocation(int Location);
+	int GetParentLocation(int Location);
 
-	int CalculateLeftChildLocation(int Location);
+	int GetLeftChildLocation(int Location);
 
-	int CalculateRightChildLocation(int Location);
+	int GetRightChildLocation(int Location);
 };
 
 inline void MaxHeapArray::Push(vector<int>& Heap, const int& value)
@@ -26,7 +26,7 @@ inline void MaxHeapArray::Push(vector<int>& Heap, const int& value)
 
 	while (PushLocation >= 1)
 	{
-		int ParentLocation = CalculateParentLocation(PushLocation);
+		int ParentLocation = GetParentLocation(PushLocation);
 		if (Heap[PushLocation] > Heap[ParentLocation])
 		{
 			swap(Heap[PushLocation], Heap[ParentLocation]);
@@ -43,7 +43,7 @@ inline int MaxHeapArray::Top(vector<int>& Heap)
 {
 	if (Heap.empty())
 	{
-		cout << "HeapÀÌ ºñ¾îÀÖ½À´Ï´Ù.\n";
+		cout << "Heapì´ ë¹„ì–´ìžˆìŠµë‹ˆë‹¤.\n";
 		return -1;
 	}
 	return Heap[0];
@@ -65,8 +65,8 @@ inline void MaxHeapArray::Pop(vector<int>& Heap)
 
 	while (Rotate < HeapSize)
 	{
-		int LeftChild = CalculateLeftChildLocation(Rotate);
-		int RightChild = CalculateRightChildLocation(Rotate);
+		int LeftChild = GetLeftChildLocation(Rotate);
+		int RightChild = GetRightChildLocation(Rotate);
 		if (RightChild < HeapSize)
 		{
 			if (Heap[Rotate] < Heap[LeftChild] && Heap[Rotate] < Heap[RightChild])
@@ -119,21 +119,21 @@ inline void MaxHeapArray::Traverse(const vector<int>& Heap)
 	cout << '\n';
 }
 
-inline int MaxHeapArray::CalculateParentLocation(int Location)
+inline int MaxHeapArray::GetParentLocation(int Location)
 {
 	Location -= 1;
 	Location >>= 1;
 	return Location;
 }
 
-inline int MaxHeapArray::CalculateLeftChildLocation(int Location)
+inline int MaxHeapArray::GetLeftChildLocation(int Location)
 {
 	Location <<= 1;
 	Location += 1;
 	return Location;
 }
 
-inline int MaxHeapArray::CalculateRightChildLocation(int Location)
+inline int MaxHeapArray::GetRightChildLocation(int Location)
 {
 	Location <<= 1;
 	Location += 2;
